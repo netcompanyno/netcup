@@ -8,7 +8,26 @@ class App extends Component {
     return (
       <div>
         <AppBar title={this.props.title} showMenuIconButton={false} />
-        <ParticipantsList header="Leaderboards" participants={[]} />
+        <ParticipantsList header="Leaderboards" participants={[
+          {
+            name: 'Test',
+            shortname: 'Testesen',
+            imageUrl: 'https://vignette.wikia.nocookie.net/legostarwars/images/2/2e/9489_stormtrooper.png/revision/latest?cb=20141103012716',
+            points: 1,
+          },
+          {
+            name: 'Test',
+            shortname: 'Testesen',
+            imageUrl: 'https://vignette.wikia.nocookie.net/legostarwars/images/2/2e/9489_stormtrooper.png/revision/latest?cb=20141103012716',
+            points: 2,
+          },
+          {
+            name: 'Test',
+            shortname: 'Testesen',
+            imageUrl: 'https://vignette.wikia.nocookie.net/legostarwars/images/2/2e/9489_stormtrooper.png/revision/latest?cb=20141103012716',
+            points: 3,
+          },
+        ]} />
       </div>
     );
   }
