@@ -13,7 +13,7 @@ const ParticipantsList = ({ header, participants }) =>
       </header>
     </Col>
     <Col md={8} mdOffset={2}>
-      <List className="participant-list__list">
+      <List>
         {participants && participants.length ?
           participants.map((participant, i) =>
             <article key={i}>
