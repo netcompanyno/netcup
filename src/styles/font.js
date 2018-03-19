@@ -1,1 +1,0 @@
-export const PRIMARY_FONT_SIZE = '20px';

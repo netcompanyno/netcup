@@ -1,0 +1,12 @@
+$points-font-color: #FFFFFF;
+
+.participant-list-item__points {
+  border-radius: 50%;
+  background-color: $secondary-color;
+  height: $base * 2;
+  width: $base * 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $points-font-color; 
+}

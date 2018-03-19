@@ -2,46 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import { Col } from 'react-flexbox-grid/lib';
 import ParticipantsListItem from './ParticipantListItem';
-import { PRIMARY_FONT_SIZE } from '../../../styles/font';
-import { BASE } from '../../../styles/base';
-
-const subHeaderWrapper = {
-  display: 'flex',
-  justifyContent: 'left',
-  alignItems: 'center',
-  paddingLeft: BASE,
-};
-
-const subheader = {
-  marginTop: BASE,
-  marginBottom: BASE,
-  fontSize: PRIMARY_FONT_SIZE,
-};
-
-const list = {
-  paddingTop: '0',
-};
 
 const ParticipantsList = ({ header, participants }) =>
-  <div>
-    <div style={subHeaderWrapper}>
-      <div style={subheader}>{header}</div>
-    </div>
-    <List style={list}>
-      {participants && participants.length ?
-        participants.map((participant, i) =>
-          <div key={i}>
-            <Divider />
-            <ParticipantsListItem name={participant.name}
-              shortname={participant.shortname}
-              avatar={participant.imageUrl}
-              points={participant.points} />
-          </div>
-        ) : undefined
-      }
-    </List>
-  </div>;
+  <section>
+    <Col md={8} mdOffset={2}>
+      <header className="participant-list__subheader-wrapper">
+        <div className="participant-list__subheader">{header}</div>
+      </header>
+    </Col>
+    <Col md={8} mdOffset={2}>
+      <List className="participant-list__list">
+        {participants && participants.length ?
+          participants.map((participant, i) =>
+            <article key={i}>
+              <Divider />
+              <ParticipantsListItem name={participant.name}
+                shortname={participant.shortname}
+                avatar={participant.imageUrl}
+                points={participant.points} />
+            </article>
+          ) : undefined
+        }
+      </List>
+    </Col>
+  </section>;
 
 ParticipantsList.propTypes = {
   header: PropTypes.string,

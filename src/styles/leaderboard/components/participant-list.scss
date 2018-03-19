@@ -1,0 +1,16 @@
+.participant-list__subheader-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: $base;
+}
+
+.participant-list__subheader {
+  margin-top: $base;
+  margin-bottom: $base;
+  font-size: $primary-font-size;
+}
+
+.participant-list__list {
+  padding-top: 0;
+}

@@ -2,18 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import { NC_SECONDARY_COLOR } from '../../../styles/base';
-
-const pointStyling = {
-  borderRadius: '50%',
-  backgroundColor: NC_SECONDARY_COLOR,
-  height: '40px',
-  width: '40px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  color: '#FFFFFF',
-};
 
 const ParticipantsListItem = ({
   name,
@@ -25,8 +13,8 @@ const ParticipantsListItem = ({
     secondaryText={shortname}
     leftAvatar={<Avatar src={avatar} />}
     rightAvatar={
-      <div style={pointStyling}>
-        <div>{points}</div>    
+      <div className="participant-list-item__points">
+        <div>{points}</div>
       </div>
     }    
   />;
