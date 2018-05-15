@@ -9,7 +9,7 @@ class App extends Component {
       <div>
         <AppBar title={this.props.title} showMenuIconButton={false} />
         <Router>
-          <Route path="/leaderboard" component={Leaderboard} />
+          <Route path="/" component={Leaderboard} />
         </Router>
       </div>
     );
