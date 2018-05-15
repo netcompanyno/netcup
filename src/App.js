@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Leaderboard from './modules/leaderboard';
 
 class App extends Component {
@@ -7,7 +8,9 @@ class App extends Component {
     return (
       <div>
         <AppBar title={this.props.title} showMenuIconButton={false} />
-        <Leaderboard header="Leaderboards" />
+        <Router>
+          <Route path="/leaderboard" component={Leaderboard} />
+        </Router>
       </div>
     );
   }
