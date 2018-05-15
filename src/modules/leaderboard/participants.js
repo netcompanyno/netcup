@@ -1,10 +1,10 @@
 import { fetchParticipants } from './services/participant-service';
 import { parseParticipants } from './utilities/participant-parser';
 
-const FETCH_PARTICIPANTS_START = 'leaderboard:FETCH_PARTICIPANTS_START';
-const FETCH_PARTICIPANTS_SUCCESS = 'leaderboard:FETCH_PARTICIPANTS_SUCCESS';
-const FETCH_PARTICIPANTS_FAILURE = 'leaderboard:FETCH_PARTICIPANTS_FAILURE';
-const FETCH_PARTICIPANTS_FINISH = 'leaderboard:FETCH_PARTICIPANTS_FINISH';
+const FETCH_PARTICIPANTS_START = 'netcup/leaderboard/FETCH_PARTICIPANTS_START';
+const FETCH_PARTICIPANTS_SUCCESS = 'netcup/leaderboard/FETCH_PARTICIPANTS_SUCCESS';
+const FETCH_PARTICIPANTS_FAILURE = 'netcup/leaderboard/FETCH_PARTICIPANTS_FAILURE';
+const FETCH_PARTICIPANTS_FINISH = 'netcup/leaderboard/FETCH_PARTICIPANTS_FINISH';
 
 const defaultState = {
   participants: [],
