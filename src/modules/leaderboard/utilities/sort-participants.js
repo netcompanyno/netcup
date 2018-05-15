@@ -1,5 +1,5 @@
-const sortParticipants = participants => {
-  return participants.sort((e1, e2) => {
+const sortParticipants = participants =>
+  participants.sort((e1, e2) => {
     if (e1.points > e2.points) {
       return -1;
     }
@@ -8,6 +8,5 @@ const sortParticipants = participants => {
     }
     return 0;
   });
-};
 
 export default sortParticipants;
