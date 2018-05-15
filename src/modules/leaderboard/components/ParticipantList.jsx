@@ -12,7 +12,6 @@ class ParticipantsList extends Component {
   }
   render() {
     const {
-      header,
       participants,
       loading,
     } = this.props;
@@ -20,7 +19,7 @@ class ParticipantsList extends Component {
       <section>
         <Col md={8} mdOffset={2}>
           <header className="participant-list__subheader-wrapper">
-            <div className="participant-list__subheader">{header}</div>
+            <div className="participant-list__subheader">Resultatliste</div>
           </header>
         </Col>
         {loading &&
