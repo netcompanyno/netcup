@@ -1,9 +1,10 @@
 import { fetchParticipants } from './services/participant-service';
+import { parseParticipants } from './utilities/participant-parser';
 
-const FETCH_PARTICIPANTS_START = 'netcup/participants/FETCH_PARTICIPANTS_START';
-const FETCH_PARTICIPANTS_SUCCESS = 'netcup/participants/FETCH_PARTICIPANTS_SUCCESS';
-const FETCH_PARTICIPANTS_FAILURE = 'netcup/participants/FETCH_PARTICIPANTS_FAILURE';
-const FETCH_PARTICIPANTS_FINISH = 'netcup/participants/FETCH_PARTICIPANTS_FINISH';
+const FETCH_PARTICIPANTS_START = 'leaderboard:FETCH_PARTICIPANTS_START';
+const FETCH_PARTICIPANTS_SUCCESS = 'leaderboard:FETCH_PARTICIPANTS_SUCCESS';
+const FETCH_PARTICIPANTS_FAILURE = 'leaderboard:FETCH_PARTICIPANTS_FAILURE';
+const FETCH_PARTICIPANTS_FINISH = 'leaderboard:FETCH_PARTICIPANTS_FINISH';
 
 const defaultState = {
   participants: [],
@@ -28,7 +29,8 @@ export const loadParticipants = () => async dispatch => {
   dispatch({ type: FETCH_PARTICIPANTS_START });
   try {
     const participants = await fetchParticipants();
-    dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: participants });
+    const parsedParticipants = parseParticipants(participants);
+    dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
     dispatch({ type: FETCH_PARTICIPANTS_FAILURE });
   }

@@ -38,7 +38,7 @@ class ParticipantsList extends Component {
                   <Divider />
                   <ParticipantsListItem name={participant.name}
                     shortname={participant.shortname}
-                    avatar={participant.imageUrl}
+                    avatar={participant.image}
                     points={participant.points} />
                 </article>
               ) : undefined
