@@ -7,9 +7,7 @@ class SignUp extends React.Component {
   }
   render() {
     return (
-      <Row>
-        <input />
-      </Row>
+      <div></div>
     );
   }
 }
