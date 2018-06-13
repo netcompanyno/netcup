@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import AppBar from 'material-ui/AppBar';
 import AppBar from '@material-ui/core/AppBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Leaderboard from './modules/leaderboard';
