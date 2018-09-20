@@ -1,23 +1,16 @@
 import { connect } from 'react-redux';
 import SignUp from '../components/SignUp';
-import { signUp } from '../../../auth/firebase';
-import { create, error } from '../signup';
-
-const signUpAction = async (email, password, dispatch) => {
-  try {
-    const creationResult = await signUp(email, password);
-    dispatch(create(creationResult));
-  } catch (e) {
-    const { code } = e;
-    dispatch(error(code));
-  }
-};
+import { updateEmail, updatePassword, signup } from '../signup';
 
 export default connect(
   state => ({
-
+    email: state.signup.email,
+    password: state.signup.password,
+    loggedIn: !!(state.auth.currentUser && state.auth.currentUser.uid),
   }),
-  dispatch => ({
-   signUp: (email, password) => signUpAction(email, password, dispatch),
+  (dispatch, ownProps) => ({
+    onChangeEmail: email => dispatch(updateEmail(email)),
+    onChangePassword: password => dispatch(updatePassword(password)),
+    signup: () => dispatch(signup),
   }),
 )(SignUp);
