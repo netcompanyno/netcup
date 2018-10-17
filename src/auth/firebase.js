@@ -9,9 +9,13 @@ firebase.initializeApp({
 
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    store.dispatch(updateCurrentUser(user));
+    const { uid, email, emailVerified } = user;
+    store.dispatch(updateCurrentUser({ uid, email, emailVerified }));
   }
 });
 
 export const signUp = async (email, password) =>
   firebase.auth().createUserWithEmailAndPassword(email, password);
+
+export const sendVerificationEmail = () =>
+  firebase.auth().currentUser.sendEmailVerification();
