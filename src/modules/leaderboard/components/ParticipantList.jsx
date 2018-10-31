@@ -15,6 +15,7 @@ class ParticipantsList extends Component {
       participants,
       loading,
     } = this.props;
+
     return (
       <section>
         <Col md={8} mdOffset={2}>

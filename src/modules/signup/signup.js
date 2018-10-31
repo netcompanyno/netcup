@@ -32,11 +32,12 @@ export const error = error => ({ type: ERROR, payload: error });
 export const updateEmail = email => ({ type: UPDATE_EMAIL, payload: email });
 export const updatePassword = password => ({ type: UPDATE_PASSWORD, payload: password });
 
-export const signup = async (dispatch, getState) => {
-  const { email, password } = getState().signup;
+export const signup = (email, password) => async dispatch => {
   
   try {
-    const emailWasValid = await validEmail(email);
+    // TODO REIMPLEMENT EMAIL VALIDATION FUNCTION
+    // const emailWasValid = await validEmail(email);
+    const emailWasValid = true;
     if (!emailWasValid) {
       throw new Error({ message: 'Email submitted cannot be used to sign up with' });
     }
