@@ -47,7 +47,6 @@ export const login = (userEmail, password, history, location) => async dispatch 
     history.push(location);
   } catch (e) {
     dispatch(loginFailure);
-    console.error(e);
   } finally {
     dispatch(finishedLogin);
   }
