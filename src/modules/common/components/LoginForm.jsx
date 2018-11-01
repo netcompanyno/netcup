@@ -20,6 +20,7 @@ class LoginForm extends Component {
               type="email"
               required
               label="Email"
+              autoComplete="email"
               value={this.state.email}
               onChange={e => this.setState({ email: e.target.value })}
             />
@@ -33,6 +34,7 @@ class LoginForm extends Component {
               fullWidth
               required
               label="Password"
+              autoComplete="current-password"
               password={this.state.password}
               onChange={e => this.setState({ password: e.target.value })}
             />
