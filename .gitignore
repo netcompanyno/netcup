@@ -57,7 +57,7 @@ typings/
 # dev-script
 dev.sh
 
-# build script
+# deploy script
 deploy.sh
 
 # dependencies
