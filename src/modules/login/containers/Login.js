@@ -8,6 +8,6 @@ export default withRouter(connect(
     authenticated: () => !!(state.auth.currentUser && state.auth.currentUser.uid),
   }),
   dispatch => ({
-    login: (email, password) => dispatch(login(email, password)),
+    login: (email, password, history, location) => dispatch(login(email, password, history, location)),
   }),
 )(Login));

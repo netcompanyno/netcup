@@ -5,23 +5,16 @@ import LoginForm from '../../common/components/LoginForm';
 
 
 class Login extends Component {
-  
-  /**
-   * TODO FIX THIS TO NOT USE CURRENT LIFECYCLE METHOD
-   */
-  componentWillReceiveProps() {
-    if (this.props.authenticated()) {
-      const location = this.props.location.state ? this.props.location.state.from : '/';
-      this.props.history.push(location);
-    }
-  }
-
   render() {
+    const location = this.props.location;
+    const path = location.state && location.state.from ? 
+      location.state.from : '/';
+
     return (
       <div>
         <LoginForm
           loginButtonText="Login"
-          login={(email, password) => this.props.login(email, password)}
+          login={(email, password) => this.props.login(email, password, this.props.history, path)}
         />
         <Row style={{ marginTop: '20px' }}>
           <Col xs={12}>

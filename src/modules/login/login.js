@@ -32,17 +32,19 @@ const loginSuccess = { type: LOGIN_SUCCESS };
 const loginFailure = { type: LOGIN_FAILURE };
 const finishedLogin = { type: LOGIN_FINISH };
 
-export const login = (userEmail, password) => async (dispatch, getState) => {
+export const login = (userEmail, password, history, location) => async dispatch => {
   dispatch(startLogin);
 
   try {
     const res = await firebaseLogin(userEmail, password);
-    const { uid, email, displayName } = res.user;
+    const { uid, email, displayName, emailVerified } = res.user;
     const token = await res.user.getIdToken();
 
-    dispatch(updateCurrentUser({ uid, email, displayName }));
+    dispatch(updateCurrentUser({ uid, email, displayName, emailVerified }));
     dispatch(updateApiToken(token));
     dispatch(loginSuccess);
+
+    history.push(location);
   } catch (e) {
     dispatch(loginFailure);
     console.error(e);

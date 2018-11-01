@@ -3,6 +3,12 @@ import PrivateRoute from '../components/PrivateRoute';
 
 export default connect(
   state => ({
-    isAuthenticated: () => !!(state.auth.currentUser && state.auth.currentUser.uid),
+    isAuthenticated: () => {
+      if (!state.auth.currentUser) {
+        return false;
+      }
+      const { uid, emailVerified } = state.auth.currentUser;
+      return uid && emailVerified;
+    },
   }),
 )(PrivateRoute);
