@@ -7,19 +7,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import LoginForm from '../../common/components/LoginForm';
 
 class SignUp extends Component {
-  componentDidUpdate() {
-    if (this.props.authenticated()) {
-      this.props.history.push('/');
-    }
-  }
-
   render() {
     const showEmailPrompt = this.props.showEmailPrompt;
     return (
       showEmailPrompt ?
         <Row>
           <Col xs sm={6} smOffset={3}>
-            <Dialog open={showEmailPrompt} onClose={() => console.log('closed')}>
+            <Dialog open={showEmailPrompt}>
               <DialogTitle>Confirm your account</DialogTitle>
               <DialogContent>
                 <DialogContentText>{`Check your email for confirmation link`}</DialogContentText>
