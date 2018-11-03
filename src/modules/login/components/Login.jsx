@@ -5,16 +5,15 @@ import LoginForm from '../../common/components/LoginForm';
 
 
 class Login extends Component {
+  componentDidUpdate() {
+    this.props.load(this.props.authenticated);
+  }
   render() {
-    const location = this.props.location;
-    const path = location.state && location.state.from ? 
-      location.state.from : '/';
-
     return (
       <div>
         <LoginForm
           loginButtonText="Login"
-          login={(email, password) => this.props.login(email, password, this.props.history, path)}
+          login={(email, password) => this.props.login(email, password)}
         />
         <Row style={{ marginTop: '20px' }}>
           <Col xs={12}>

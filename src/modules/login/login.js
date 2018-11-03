@@ -32,7 +32,7 @@ const loginSuccess = { type: LOGIN_SUCCESS };
 const loginFailure = { type: LOGIN_FAILURE };
 const finishedLogin = { type: LOGIN_FINISH };
 
-export const login = (userEmail, password, history, location) => async dispatch => {
+export const login = (userEmail, password, redirect) => async dispatch => {
   dispatch(startLogin);
 
   try {
@@ -44,7 +44,7 @@ export const login = (userEmail, password, history, location) => async dispatch 
     dispatch(updateApiToken(token));
     dispatch(loginSuccess);
 
-    history.push(location);
+    redirect();
   } catch (e) {
     dispatch(loginFailure);
   } finally {

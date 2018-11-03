@@ -5,13 +5,23 @@ const CURRENT_USER_CHANGED = `${APP}/auth/currentUserChanged`;
 
 const defaultState = {};
 
+const loggedIn = (currentUser, token) =>
+  Boolean(currentUser &&
+    currentUser.uid &&
+    currentUser.emailVerified &&
+    token);
+
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
     case CURRENT_USER_CHANGED: {
-      return { ...state, currentUser: action.payload };
+      const currentUser = action.payload;
+      const token = state.token;
+      return { ...state, currentUser, loggedIn: loggedIn(currentUser, token) };
     }
     case TOKEN_CHANGED: {
-      return { ...state, token: action.payload };
+      const currentUser = state.currentUser;
+      const token = action.payload;
+      return { ...state, token, loggedIn: loggedIn(currentUser, token) };
     }
     default: return state;
   }
