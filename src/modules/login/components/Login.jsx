@@ -15,13 +15,6 @@ class Login extends Component {
           loginButtonText="Login"
           login={(email, password) => this.props.login(email, password)}
         />
-        <Row style={{ marginTop: '20px' }}>
-          <Col xs={12}>
-            <Row center="xs">
-              <Link to="/signup">Sign up</Link>
-            </Row>
-          </Col>
-        </Row>
       </div>
     );
   }

@@ -18,7 +18,6 @@ class App extends Component {
         </AppBar>
         <Router>
           <Switch>
-            <Route path="/signup" component={SignUp} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/" exact component={Leaderboard} />
           </Switch>
