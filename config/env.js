@@ -75,6 +75,8 @@ function getClientEnvironment(publicUrl) {
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
         FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
+        FIREBASE_AUTH_API_TOKEN: process.env.FIREBASE_AUTH_API_TOKEN,
+        FIREBASE_EMAIL_VALIDATION_URL: process.env.FIREBASE_EMAIL_VALIDATION_URL,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

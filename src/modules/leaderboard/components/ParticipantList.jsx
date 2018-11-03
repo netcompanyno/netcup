@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 import { Col, Row } from 'react-flexbox-grid/lib';
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import ParticipantsListItem from './ParticipantListItem';
 
 class ParticipantsList extends Component {
@@ -15,6 +15,7 @@ class ParticipantsList extends Component {
       participants,
       loading,
     } = this.props;
+
     return (
       <section>
         <Col md={8} mdOffset={2}>

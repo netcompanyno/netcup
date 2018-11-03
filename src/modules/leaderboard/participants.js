@@ -18,6 +18,9 @@ export default (state = defaultState, action) => {
     case FETCH_PARTICIPANTS_SUCCESS: {
       return { ...state, participants: action.payload };
     }
+    case FETCH_PARTICIPANTS_FAILURE: {
+      return { ...state, participants: [] };
+    }
     case FETCH_PARTICIPANTS_FINISH: {
       return { ...state, loading: false };
     }
@@ -25,10 +28,16 @@ export default (state = defaultState, action) => {
   }
 };
 
-export const loadParticipants = () => async dispatch => {
+export const loadParticipants = () => async (dispatch, getState) => {
   dispatch({ type: FETCH_PARTICIPANTS_START });
   try {
-    const participants = await fetchParticipants();
+    const token = getState().auth.token;
+    
+    if (!token) {
+      throw new Error('token for api calls not set');
+    }
+
+    const participants = await fetchParticipants(token);
     const parsedParticipants = parseParticipants(participants);
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
