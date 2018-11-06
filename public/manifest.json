@@ -1,6 +1,12 @@
 {
+  "name": "NetCup",
   "short_name": "NetCup",
-  "name": "NetCup - PWA edition",
+  "theme_color": "#0f2147",
+  "background_color": "#50b8c1",
+  "display": "standalone",
+  "orientation": "portrait",
+  "Scope": "/",
+  "start_url": "/",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,8 +14,5 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "splash_pages": null
 }
