@@ -36,8 +36,8 @@ class ParticipantsList extends Component {
               participants.map((participant, i) =>
                 <article key={i}>
                   <Divider />
-                  <ParticipantsListItem name={participant.name}
-                    shortname={participant.shortname}
+                  <ParticipantsListItem
+                    name={participant.name}
                     avatar={participant.image}
                     points={participant.points} />
                 </article>
