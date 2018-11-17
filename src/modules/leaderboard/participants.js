@@ -1,4 +1,4 @@
-import { fetchParticipants } from './services/participant-service';
+import { fetchParticipants, fetchUser } from './services/participant-service';
 import { parseParticipants } from './utilities/participant-parser';
 
 const FETCH_PARTICIPANTS_START = 'netcup/leaderboard/FETCH_PARTICIPANTS_START';
@@ -37,8 +37,11 @@ export const loadParticipants = () => async (dispatch, getState) => {
       throw new Error('token for api calls not set');
     }
 
-    const participants = await fetchParticipants(token);
-    const parsedParticipants = parseParticipants(participants);
+    const participants = await fetchParticipants(token, new Date().getFullYear());
+    const parsedParticipants = await Promise.all(parseParticipants(participants)
+      .map(participant => fetchUser(token, participant.name)
+      .then(user => ({ ...participant, image: user && user.image }))));
+
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
     dispatch({ type: FETCH_PARTICIPANTS_FAILURE });

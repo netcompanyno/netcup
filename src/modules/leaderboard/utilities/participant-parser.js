@@ -1,1 +1,1 @@
-export const parseParticipants = participants => Object.keys(participants).map(id => participants[id]);
+export const parseParticipants = participants => Object.keys(participants).map(id => ({ ...participants[id], name: id }));
