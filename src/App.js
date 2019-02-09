@@ -6,6 +6,7 @@ import Leaderboard from './modules/leaderboard';
 import SignUp from './modules/signup';
 import Login from './modules/login';
 import { Toolbar, Typography } from '@material-ui/core';
+import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
 
 class App extends Component {
   render() {
@@ -17,10 +18,13 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Router>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <PrivateRoute path="/" exact component={Leaderboard} />
-          </Switch>
+          <div>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <PrivateRoute path="/" exact component={Leaderboard} />
+            </Switch>
+            <BottomNavigationBar />
+          </div>
         </Router>
       </div>
     );
