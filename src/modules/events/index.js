@@ -1,3 +1,3 @@
-import EventList from './components/EventList';
+import EventList from './containers/EventList';
 
 export default EventList;
