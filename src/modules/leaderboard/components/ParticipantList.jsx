@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import { Col, Row } from 'react-flexbox-grid/lib';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ParticipantsListItem from './ParticipantListItem';
+import Content from '../../common/components/Content';
 
 class ParticipantsList extends Component {
   componentDidMount() {
     this.props.loadParticipants();
   }
+  
   render() {
     const {
       participants,
@@ -17,35 +18,31 @@ class ParticipantsList extends Component {
     } = this.props;
 
     return (
-      <section>
-        <Col md={8} mdOffset={2}>
-          <header className="participant-list__subheader-wrapper">
-            <div className="participant-list__subheader">Resultatliste</div>
-          </header>
-        </Col>
-        {loading &&
-          <Row center="xs">
-            <Row middle="xs">
-              <CircularProgress size={60} />
+      <Content>
+        <section>
+          {loading &&
+            <Row center="xs">
+              <Row middle="xs">
+                <CircularProgress size={60} />
+              </Row>
             </Row>
-          </Row>
-        }
-        <Col md={8} mdOffset={2}>
-          <List>
-            {participants && participants.length ?
-              participants.map((participant, i) =>
-                <article key={i}>
-                  <Divider />
-                  <ParticipantsListItem
-                    name={participant.name}
-                    avatar={participant.image}
-                    points={participant.points} />
-                </article>
-              ) : undefined
-            }
-          </List>
-        </Col>
-      </section>
+          }
+          <Col md={8} mdOffset={2}>
+            <List>
+              {participants && participants.length ?
+                participants.map((participant, i) =>
+                  <article key={i}>
+                    <ParticipantsListItem
+                      name={participant.name}
+                      avatar={participant.image}
+                      points={participant.points} />
+                  </article>
+                ) : undefined
+              }
+            </List>
+          </Col>
+        </section>
+      </Content>
     );
   }
 }
@@ -57,7 +54,7 @@ ParticipantsList.propTypes = {
 };
 
 ParticipantsList.defaultProps = {
-  header: '',  
+  header: '',
   participants: [],
   loading: false,
 };
