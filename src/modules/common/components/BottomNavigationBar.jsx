@@ -17,19 +17,21 @@ const styles = {
 
 class BottomNavigationBar extends Component {
   render() {
-    const { classes, value, switchTab } = this.props;
+    const { classes, value, switchTab, show } = this.props;
 
     return (
-      <BottomNavigation
-        value={value}
-        onChange={(e, value) => switchTab(value)}
-        showLabels
-        className={classes.root}
-      >
-        <BottomNavigationAction label="Leaderboard" icon={<FormatListNumberedRtlIcon />} />
-        <BottomNavigationAction label="Events" icon={<EventIcon />} />
-        <BottomNavigationAction label="Profile" icon={<ProfileIcon />} />
-      </BottomNavigation>
+      show ?
+        <BottomNavigation
+          value={value}
+          onChange={(e, value) => switchTab(value)}
+          showLabels
+          className={classes.root}
+        >
+          <BottomNavigationAction label="Leaderboard" icon={<FormatListNumberedRtlIcon />} />
+          <BottomNavigationAction label="Events" icon={<EventIcon />} />
+          <BottomNavigationAction label="Profile" icon={<ProfileIcon />} />
+        </BottomNavigation>
+        : null
     );
   }
 }
