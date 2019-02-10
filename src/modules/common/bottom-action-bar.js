@@ -1,6 +1,6 @@
 import { APP } from '../../constants';
 
-const SWITCH_TAB = `${APP}/bottomActionBar/switchTab`;
+const SWITCH_TAB = `${APP}/bottomNavigationBar/SWITCH_TAB`;
 
 const defaultState = {
   index: 0,
