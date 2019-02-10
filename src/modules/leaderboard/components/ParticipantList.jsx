@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
-import { Col, Row } from 'react-flexbox-grid/lib';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { Col } from 'react-flexbox-grid/lib';
+import { LinearProgress } from '@material-ui/core';
 import ParticipantsListItem from './ParticipantListItem';
 import Content from '../../common/components/Content';
 
@@ -10,7 +10,7 @@ class ParticipantsList extends Component {
   componentDidMount() {
     this.props.loadParticipants();
   }
-  
+
   render() {
     const {
       participants,
@@ -21,11 +21,7 @@ class ParticipantsList extends Component {
       <Content>
         <section>
           {loading &&
-            <Row center="xs">
-              <Row middle="xs">
-                <CircularProgress size={60} />
-              </Row>
-            </Row>
+            <LinearProgress />
           }
           <Col md={8} mdOffset={2}>
             <List>
