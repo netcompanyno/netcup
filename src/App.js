@@ -7,6 +7,7 @@ import SignUp from './modules/signup';
 import Login from './modules/login';
 import { Toolbar, Typography } from '@material-ui/core';
 import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
+import { LOGIN, SIGNUP, LEADERBOARD } from './routing';
 
 class App extends Component {
   render() {
@@ -20,8 +21,9 @@ class App extends Component {
         <Router>
           <div>
             <Switch>
-              <Route path="/login" component={Login} />
-              <PrivateRoute path="/" exact component={Leaderboard} />
+              <Route path={LOGIN} component={Login} />
+              <Route path={SIGNUP} component={SignUp} />
+              <PrivateRoute path={LEADERBOARD} exact component={Leaderboard} />
             </Switch>
             <BottomNavigationBar />
           </div>

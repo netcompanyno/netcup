@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import { LOGIN } from '../../../routing';
 
 class PrivateRoute extends Component {
   render() {
@@ -9,7 +10,7 @@ class PrivateRoute extends Component {
       <Route {...rest} render={props => (
         authenticated
           ? <Component {...props} />
-          : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+          : <Redirect to={{ pathname: LOGIN, state: { from: props.location } }} />
       )} />
     )
   }
