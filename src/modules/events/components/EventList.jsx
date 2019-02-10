@@ -45,7 +45,7 @@ class EventList extends Component {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Lizard
+                    {event.title}
             </Typography>
                   <Typography component="p">{event.description}
             </Typography>
