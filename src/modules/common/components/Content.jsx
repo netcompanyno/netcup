@@ -5,7 +5,7 @@ class Content extends Component {
     return (
       <div style={{
         marginBottom: '10vh'
-      }}>
+      }} className={this.props.className}>
         {this.props.children}
       </div>
     )
