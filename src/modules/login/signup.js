@@ -26,7 +26,7 @@ export default function reducer(state = defaultState, action) {
   }
 }
 
-export const signedUpSuccessfullyNotVerified = ({ type: SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED });
+export const signedUpSuccessfullyNotVerified = { type: SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED };
 export const error = error => ({ type: ERROR, payload: error });
 export const updateEmail = email => ({ type: UPDATE_EMAIL, payload: email });
 export const updatePassword = password => ({ type: UPDATE_PASSWORD, payload: password });
