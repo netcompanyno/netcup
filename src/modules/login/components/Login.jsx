@@ -4,7 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import LoginForm from '../../common/components/LoginForm';
+import LoginForm from './LoginForm';
 
 const LOGIN_TAB = 0;
 const SIGNUP_TAB = 1;
