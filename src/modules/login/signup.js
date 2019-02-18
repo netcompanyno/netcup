@@ -1,6 +1,5 @@
 import { APP } from '../../constants';
-import { signUp, sendVerificationEmail } from '../../auth/firebase';
-import { validEmail } from '../../auth/pre-auth-function';
+import { signUp } from '../../auth/firebase';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;
 const ERROR = `${APP}/signup/error`;
@@ -34,15 +33,14 @@ export const updatePassword = password => ({ type: UPDATE_PASSWORD, payload: pas
 
 export const signup = (email, password) => async dispatch => {
   try {
-    const emailWasValid = await validEmail(email);
+    const res = await signUp(email, password);
+    const body = await res.json();
 
-    if (!emailWasValid) {
-      return dispatch(error({ message: 'Email not valid for signup' }));
+    if (!res.ok) {
+      dispatch(error({ message: '', errorCode: '' }));
+    } else {
+      dispatch(signedUpSuccessfullyNotVerified);
     }
-
-    await signUp(email, password);
-    await sendVerificationEmail();
-    dispatch(signedUpSuccessfullyNotVerified);
   } catch (e) {
     dispatch(error(e));
   }

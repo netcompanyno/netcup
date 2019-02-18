@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Col, Row } from 'react-flexbox-grid/lib';
 import { TextField, Button } from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountBox from '@material-ui/icons/AccountBox';
+import Lock from '@material-ui/icons/Lock';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -12,7 +15,7 @@ class LoginForm extends Component {
   }
   render() {
     return (
-      <form style={{ marginLeft: '20px', marginRight: '20px', marginTop: '20px' }}>
+      <form>
         <Row>
           <Col xs sm={6} smOffset={3}>
             <TextField
@@ -23,6 +26,12 @@ class LoginForm extends Component {
               autoComplete="email"
               value={this.state.email}
               onChange={e => this.setState({ email: e.target.value })}
+              InputProps={{
+                endAdornment:
+                  <InputAdornment>
+                    <AccountBox />
+                  </InputAdornment>
+              }}
             />
           </Col>
         </Row>
@@ -37,18 +46,24 @@ class LoginForm extends Component {
               autoComplete="current-password"
               password={this.state.password}
               onChange={e => this.setState({ password: e.target.value })}
+              InputProps={{
+                endAdornment:
+                  <InputAdornment>
+                    <Lock />
+                  </InputAdornment>
+              }}
             />
           </Col>
         </Row>
         <Row>
           <Col xs sm={6} smOffset={3}>
             <Button
-              onClick={() => this.props.login(this.state.email, this.state.password)}
-              style={{ marginTop: '40px' }}
+              onClick={() => this.props.onButtonClick(this.state.email, this.state.password)}
+              style={{ marginTop: '30px' }}
               fullWidth
               variant="contained"
               color="primary">
-              {this.props.loginButtonText}
+              {this.props.buttonText}
             </Button>
           </Col>
         </Row>

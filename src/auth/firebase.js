@@ -19,7 +19,10 @@ export const login = async (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
 export const signUp = async (email, password) =>
-  firebase.auth().createUserWithEmailAndPassword(email, password);
-
-export const sendVerificationEmail = () =>
-  firebase.auth().currentUser.sendEmailVerification();
+  fetch(`${process.env.BACKEND_URL}/auth/signup`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password })
+  });

@@ -4,11 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toolbar, Typography } from '@material-ui/core';
 import { PrivateRoute } from './modules/auth';
 import Leaderboard from './modules/leaderboard';
-import SignUp from './modules/signup';
 import Login from './modules/login';
 import Events from './modules/events';
 import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
-import { LOGIN, SIGNUP, LEADERBOARD, EVENTS } from './routing';
+import { LOGIN, LEADERBOARD, EVENTS } from './routing';
 
 class App extends Component {
   render() {
@@ -23,7 +22,6 @@ class App extends Component {
           <div>
             <Switch>
               <Route path={LOGIN} component={Login} />
-              <Route path={SIGNUP} component={SignUp} />
               <PrivateRoute path={LEADERBOARD} exact component={Leaderboard} />
               <PrivateRoute path={EVENTS} exact component={Events} />
             </Switch>
