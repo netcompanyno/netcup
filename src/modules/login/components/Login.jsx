@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Divider, Tabs, Tab } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import ConfirmEmailDialog from './ConfirmEmailDialog';
 import LoginForm from './LoginForm';
 
 const LOGIN_TAB = 0;
@@ -23,14 +20,7 @@ class Login extends Component {
     const { showPrompt } = this.props;
     return (
       <div style={{ marginLeft: '20px', marginRight: '20px', marginTop: '20px' }}>
-        {showPrompt &&
-          <Dialog open={showPrompt}>
-            <DialogTitle>Confirm your account</DialogTitle>
-            <DialogContent>
-              <DialogContentText>{`Check your email for confirmation link`}</DialogContentText>
-            </DialogContent>
-          </Dialog>
-        }
+        <ConfirmEmailDialog showPrompt={showPrompt} />
         <Tabs
           fullWidth
           value={this.state.tabValue}
