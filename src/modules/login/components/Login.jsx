@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Tabs, Tab } from '@material-ui/core';
-import ConfirmEmailDialog from './ConfirmEmailDialog';
+import { Divider, Tabs, Tab, Snackbar } from '@material-ui/core';
 import LoginForm from './LoginForm';
 
 const LOGIN_TAB = 0;
@@ -17,10 +16,10 @@ class Login extends Component {
     this.props.load(this.props.authenticated);
   }
   render() {
-    const { showPrompt } = this.props;
+    const { showPrompt, promptText, dismissPrompt } = this.props;
     return (
       <div style={{ marginLeft: '20px', marginRight: '20px', marginTop: '20px' }}>
-        <ConfirmEmailDialog showPrompt={showPrompt} />
+        <Snackbar open={showPrompt} message={promptText} onClose={() => showPrompt && dismissPrompt()} />
         <Tabs
           fullWidth
           value={this.state.tabValue}

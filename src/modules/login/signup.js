@@ -1,26 +1,27 @@
 import { APP } from '../../constants';
-import { signUp } from '../../auth/firebase';
+import { signUp, sendVerificationEmail } from '../../auth/firebase';
+import { verifyValidEmail } from '../../auth/util';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;
 const ERROR = `${APP}/signup/error`;
-const UPDATE_EMAIL = `${APP}/signup/update_email`;
-const UPDATE_PASSWORD = `${APP}/signup/update_password`;
+const DISMISS_FLASM = `${APP}/signup/dismiss_flash_message`;
 
 const defaultState = {};
 
 export default function reducer(state = defaultState, action) {
   switch (action.type) {
+    case DISMISS_FLASM: {
+      return { ...state, showFlashMessage: false, flashMessage: '' };
+    }
     case SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED: {
-      return { ...state, showEmailCheckPrompt: true };
+      return { ...state, showFlashMessage: true, flashMessage: 'Verification email sent' };
     }
     case ERROR: {
-      return { ...state, errorMessage: action.payload.message, errorCode: action.payload.code };
-    }
-    case UPDATE_EMAIL: {
-      return { ...state, email: action.payload };
-    }
-    case UPDATE_PASSWORD: {
-      return { ...state, password: action.payload };
+      return { 
+        ...state,
+        showFlashMessage: true,
+        flashMessage: action.payload.message,
+      };
     }
     default: return state;
   }
@@ -28,19 +29,16 @@ export default function reducer(state = defaultState, action) {
 
 export const signedUpSuccessfullyNotVerified = { type: SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED };
 export const error = error => ({ type: ERROR, payload: error });
-export const updateEmail = email => ({ type: UPDATE_EMAIL, payload: email });
-export const updatePassword = password => ({ type: UPDATE_PASSWORD, payload: password });
+export const dismissFlashMessage = { type: DISMISS_FLASM };
 
 export const signup = (email, password) => async dispatch => {
   try {
-    const res = await signUp(email, password);
-    const body = await res.json();
-
-    if (!res.ok) {
-      dispatch(error({ message: '', errorCode: '' }));
-    } else {
-      dispatch(signedUpSuccessfullyNotVerified);
+    if (!process.env.NODE_ENV === 'development' && !verifyValidEmail(email)) {
+      throw new Error('Not a valid Netcompany email');
     }
+    await signUp(email, password);
+    await sendVerificationEmail(email);
+    dispatch(signedUpSuccessfullyNotVerified);
   } catch (e) {
     dispatch(error(e));
   }
