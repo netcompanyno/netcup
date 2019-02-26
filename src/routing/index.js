@@ -2,7 +2,6 @@ export const LOGIN = '/login';
 export const LEADERBOARD = '/';
 export const EVENTS = '/events';
 export const PROFILE = '/profile';
-export const SIGNUP = '/signup';
 
 const redirectLocation = location => {
   if (location.state && location.state.from) {

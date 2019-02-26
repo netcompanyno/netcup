@@ -1,20 +1,46 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-flexbox-grid';
-import LoginForm from '../../common/components/LoginForm';
+import { Divider, Tabs, Tab, Snackbar } from '@material-ui/core';
+import LoginForm from './LoginForm';
 
+const LOGIN_TAB = 0;
+const SIGNUP_TAB = 1;
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabValue: 0,
+    };
+  }
   componentDidUpdate() {
     this.props.load(this.props.authenticated);
   }
   render() {
+    const { showPrompt, promptText, dismissPrompt } = this.props;
     return (
-      <div>
-        <LoginForm
-          loginButtonText="Login"
-          login={(email, password) => this.props.login(email, password)}
-        />
+      <div style={{ marginLeft: '20px', marginRight: '20px', marginTop: '20px' }}>
+        <Snackbar open={showPrompt} message={promptText} onClose={() => showPrompt && dismissPrompt()} />
+        <Tabs
+          fullWidth
+          centered
+          value={this.state.tabValue}
+          onChange={(e, value) => this.setState({ tabValue: value })}>
+          <Tab label="Sign in" fullWidth></Tab>
+          <Tab label="Sign up" fullWidth></Tab>
+        </Tabs>
+        <Divider variant="fullWidth" style={{ marginBottom: '20px' }} />
+        {this.state.tabValue === LOGIN_TAB &&
+          <LoginForm
+            buttonText="Login"
+            onButtonClick={(email, password) => this.props.login(email, password)}
+          />
+        }
+        {this.state.tabValue === SIGNUP_TAB &&
+          <LoginForm
+            buttonText="Register"
+            onButtonClick={(email, password) => this.props.signup(email, password)}
+          />
+        }
       </div>
     );
   }
