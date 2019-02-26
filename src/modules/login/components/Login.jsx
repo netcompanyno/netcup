@@ -22,6 +22,7 @@ class Login extends Component {
         <Snackbar open={showPrompt} message={promptText} onClose={() => showPrompt && dismissPrompt()} />
         <Tabs
           fullWidth
+          centered
           value={this.state.tabValue}
           onChange={(e, value) => this.setState({ tabValue: value })}>
           <Tab label="Sign in" fullWidth></Tab>
