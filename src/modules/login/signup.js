@@ -1,5 +1,5 @@
 import { APP } from '../../constants';
-import { signUp } from '../../auth/firebase';
+import { createUser } from '../../auth/firebase';
 import { verifyValidEmail } from '../../auth/util';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;
@@ -36,17 +36,11 @@ export const dismissErrorMessage = { type: DISMISS_ERROR_MESSAGE };
 
 export const signup = (email, password) => async dispatch => {
   try {
-    if (!process.env.NODE_ENV === 'development' && !verifyValidEmail(email)) {
-      throw new Error('Not a valid Netcompany email');
+    if (process.env.NODE_ENV !== 'development' && !verifyValidEmail(email)) {
+      throw new Error({ message: 'Not a valid Netcompany email' });
     }
 
-    const res = await signUp(email, password);
-
-    if (!res.ok) {
-      const { code, message } = await res.json();
-      return dispatch(error({ code, message }));
-    }
-
+    await createUser(email, password);
     dispatch(signedUpSuccessfullyNotVerified);
   } catch (e) {
     dispatch(error(e));

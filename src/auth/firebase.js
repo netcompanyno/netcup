@@ -18,11 +18,12 @@ export const subscribeToUserChanged = (failure, success) => {
 export const login = async (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
-export const signUp = async (email, password) =>
-  fetch(`${process.env.BACKEND_URL}/auth/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password })
+export const createUser = async (email, password) => {
+  const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
+  if (!result || !result.user) {
+    throw new Error({ message: 'error during signup' });
+  }
+  return await result.user.sendEmailVerification({
+    url: `${process.env.SIGNUP_REDIRECT_URL}`,
   });
+};

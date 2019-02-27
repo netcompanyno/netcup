@@ -77,6 +77,7 @@ function getClientEnvironment(publicUrl) {
         FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
         FIREBASE_AUTH_API_TOKEN: process.env.FIREBASE_AUTH_API_TOKEN,
         BACKEND_URL: process.env.BACKEND_URL,
+        SIGNUP_REDIRECT_URL: process.env.SIGNUP_REDIRECT_URL,
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
