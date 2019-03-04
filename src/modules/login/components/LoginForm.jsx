@@ -17,7 +17,7 @@ class LoginForm extends Component {
     return (
       <form>
         <Row>
-          <Col xs sm={6} smOffset={3}>
+          <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
             <TextField
               fullWidth
               type="email"
@@ -36,7 +36,7 @@ class LoginForm extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs sm={6} smOffset={3}>
+          <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
             <TextField
               style={{ marginTop: '10px' }}
               type="password"
@@ -56,7 +56,7 @@ class LoginForm extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs sm={6} smOffset={3}>
+          <Col xs sm={6} smOffset={3} lg={1} lgOffset={7}>
             <Button
               onClick={() => this.props.onButtonClick(this.state.email, this.state.password)}
               style={{ marginTop: '30px' }}
