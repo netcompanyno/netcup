@@ -20,9 +20,12 @@ const resolveErrorMessage = ({ signup, login }) => {
 
 export default withRouter(connect(
   state => ({
+    quarantineUrl: process.env.QUARANTINE_URL,
     authenticated: state.auth.loggedIn,
     showPrompt: hasError(state),
     promptText: resolveErrorMessage(state),
+    disableLoginButton: state.login.loading,
+    disableSignupButton: state.signup.loading,
   }),
   (dispatch, ownProps) => ({
     login: (email, password) => dispatch(login(email, password, () => replace(ownProps.location, ownProps.history))),
