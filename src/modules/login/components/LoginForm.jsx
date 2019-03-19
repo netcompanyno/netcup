@@ -4,6 +4,7 @@ import { TextField, Button } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountBox from '@material-ui/icons/AccountBox';
 import Lock from '@material-ui/icons/Lock';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -55,18 +56,27 @@ class LoginForm extends Component {
             />
           </Col>
         </Row>
-        <Row>
-          <Col xs sm={6} smOffset={3} lg={1} lgOffset={7}>
-            <Button
-              onClick={() => this.props.onButtonClick(this.state.email, this.state.password)}
-              style={{ marginTop: '30px' }}
-              fullWidth
-              variant="contained"
-              color="primary">
-              {this.props.buttonText}
-            </Button>
-          </Col>
-        </Row>
+        {this.props.loading &&
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+            <CircularProgress style={{ fontSize: '10' }} />
+          </div>
+        }
+        {!this.props.loading &&
+          <Row>
+            <Col xs sm={6} smOffset={3} lg={1} lgOffset={7}>
+              <Button
+                onClick={() => this.props.onButtonClick(this.state.email, this.state.password)}
+                disabled={this.props.loading}
+                style={{ marginTop: '30px' }}
+                fullWidth
+                size="large"
+                variant="contained"
+                color="primary">
+                {this.props.buttonText}
+              </Button>
+            </Col>
+          </Row>
+        }
       </form>
     )
   }

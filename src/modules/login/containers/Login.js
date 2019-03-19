@@ -24,6 +24,8 @@ export default withRouter(connect(
     authenticated: state.auth.loggedIn,
     showPrompt: hasError(state),
     promptText: resolveErrorMessage(state),
+    disableLoginButton: state.login.loading,
+    disableSignupButton: state.signup.loading,
   }),
   (dispatch, ownProps) => ({
     login: (email, password) => dispatch(login(email, password, () => replace(ownProps.location, ownProps.history))),

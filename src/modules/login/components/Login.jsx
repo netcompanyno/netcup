@@ -32,12 +32,14 @@ class Login extends Component {
         {this.state.tabValue === LOGIN_TAB &&
           <LoginForm
             buttonText="Login"
+            loading={this.props.disableLoginButton}
             onButtonClick={(email, password) => this.props.login(email, password)}
           />
         }
         {this.state.tabValue === SIGNUP_TAB &&
           <LoginForm
             buttonText="Register"
+            loading={this.props.disableSignupButton}
             onButtonClick={(email, password) => this.props.signup(email, password)}
           />
         }
