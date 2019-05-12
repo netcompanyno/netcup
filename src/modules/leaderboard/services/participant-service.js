@@ -2,7 +2,7 @@ import firebase from '../../../firebase';
 
 export const fetchParticipants = async year => {
   try {
-    const snapshot = await firebase.database().ref(`leaderboards/${year}`).once('value');
+    const snapshot = await firebase.database().ref(`${year}/leaderboards`).once('value');
     return snapshot.val();
   } catch (e) {
     throw new Error(e);
