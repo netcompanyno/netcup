@@ -1,4 +1,4 @@
-import { subscribeToUserChanged } from './firebase';
+import { subscribeToUserChanged } from '../firebase';
 import { updateCurrentUser, updateApiToken } from '../modules/auth/auth';
 
 export const isAuthenticated = state => {

@@ -1,8 +1,10 @@
-export const fetchEvents = async (token, year) => {
+import firebase from '../../../firebase';
+
+export const fetchEvents = async year => {
   try {
-    const res = await fetch(`${process.env.FIREBASE_DATABASE_URL}/events/${year}.json?auth=${token}`);
-    return await res.ok ? res.json() : Promise.resolve({});
+    const snapshot = await firebase.database().ref(`${year}/events`).once('value');
+    return snapshot.val();
   } catch (e) {
     throw new Error(e);
   }
-}
+};

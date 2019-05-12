@@ -1,8 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database';
 
-firebase.initializeApp({
+const app = firebase.initializeApp({
   apiKey: `${process.env.FIREBASE_AUTH_API_TOKEN}`,
+  databaseURL: `${process.env.FIREBASE_DATABASE_URL}`,
 });
 
 export const subscribeToUserChanged = (failure, success) => {
@@ -27,3 +29,5 @@ export const createUser = async (email, password) => {
     url: `${process.env.SIGNUP_REDIRECT_URL}`,
   });
 };
+
+export default app;

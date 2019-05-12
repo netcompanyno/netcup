@@ -29,7 +29,7 @@ class ParticipantsList extends Component {
                 participants.map((participant, i) =>
                   <article key={i}>
                     <ParticipantsListItem
-                      name={participant.name}
+                      name={participant.fullname}
                       avatar={participant.image}
                       points={participant.points} />
                   </article>

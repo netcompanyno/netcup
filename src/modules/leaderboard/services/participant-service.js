@@ -1,16 +1,18 @@
-export const fetchParticipants = async (token, year) => {
+import firebase from '../../../firebase';
+
+export const fetchParticipants = async year => {
   try {
-    const res = await fetch(`${process.env.FIREBASE_DATABASE_URL}/leaderboards/${year}.json?auth=${token}`);
-    return await res.ok ? res.json() : Promise.resolve({});
+    const snapshot = await firebase.database().ref(`${year}/leaderboards`).once('value');
+    return snapshot.val();
   } catch (e) {
     throw new Error(e);
   }
 }
 
-export const fetchUser = async (token, name) => {
+export const fetchUser = async name => {
   try {
-    const res = await fetch(`${process.env.FIREBASE_DATABASE_URL}/users/${name}.json?auth=${token}`);
-    return await res.ok ? res.json() : Promise.resolve({});
+    const snapshot = await firebase.database().ref(`users/${name}`).once('value');
+    return snapshot.val();
   } catch (e) {
     throw new Error(e);
   }
