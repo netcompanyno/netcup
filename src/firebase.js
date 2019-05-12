@@ -7,8 +7,6 @@ const app = firebase.initializeApp({
   databaseURL: `${process.env.FIREBASE_DATABASE_URL}`,
 });
 
-export default app;
-
 export const subscribeToUserChanged = (failure, success) => {
   return firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -31,3 +29,5 @@ export const createUser = async (email, password) => {
     url: `${process.env.SIGNUP_REDIRECT_URL}`,
   });
 };
+
+export default app;
