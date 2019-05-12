@@ -1,5 +1,6 @@
 import { fetchParticipants, fetchUser } from './services/participant-service';
 import { parseParticipants } from './utilities/participant-parser';
+import defaultProfileImage from './assets/images/default_profile_image.jpg';
 
 const FETCH_PARTICIPANTS_START = 'netcup/leaderboard/FETCH_PARTICIPANTS_START';
 const FETCH_PARTICIPANTS_SUCCESS = 'netcup/leaderboard/FETCH_PARTICIPANTS_SUCCESS';
@@ -40,7 +41,7 @@ export const loadParticipants = () => async (dispatch, getState) => {
     const participants = await fetchParticipants(new Date().getFullYear());
     const parsedParticipants = await Promise.all(parseParticipants(participants)
       .map(participant => fetchUser(participant.name)
-      .then(user => ({ ...participant, image: user && user.image }))));
+      .then(user => ({ ...participant, image: user && user.image || defaultProfileImage }))));
 
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
