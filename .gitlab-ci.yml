@@ -16,7 +16,6 @@ build:
 deploy:
   stage: deploy
   only:
-  - setup-cd
   - master
   environment:
     name: production
