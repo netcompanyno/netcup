@@ -37,9 +37,9 @@ export const loadParticipants = () => async (dispatch, getState) => {
       throw new Error('token for api calls not set');
     }
 
-    const participants = await fetchParticipants(token, new Date().getFullYear());
+    const participants = await fetchParticipants(new Date().getFullYear());
     const parsedParticipants = await Promise.all(parseParticipants(participants)
-      .map(participant => fetchUser(token, participant.name)
+      .map(participant => fetchUser(participant.name)
       .then(user => ({ ...participant, image: user && user.image }))));
 
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });

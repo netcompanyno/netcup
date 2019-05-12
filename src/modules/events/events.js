@@ -38,7 +38,7 @@ export const loadEvents = () => async (dispatch, getState) => {
       throw new Error('token for api calls not set');
     }
 
-    const eventsFromApi = await fetchEvents(token, new Date().getFullYear());
+    const eventsFromApi = await fetchEvents(new Date().getFullYear());
     const events = Object.keys(eventsFromApi)
       .map(id => ({ ...eventsFromApi[id], id }))
       .map(event => ({ description: event.description, image: event.eventImageUrl, title: event.title }));
