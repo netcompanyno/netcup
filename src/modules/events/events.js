@@ -29,6 +29,11 @@ export default (state = defaultState, action) => {
   }
 };
 
+const formatDatetime = datetimeIsoString => {
+  const date = new Date(datetimeIsoString);
+  return `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
+};
+
 export const loadEvents = () => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENTS_START });
   try {
@@ -41,7 +46,12 @@ export const loadEvents = () => async (dispatch, getState) => {
     const eventsFromApi = await fetchEvents(new Date().getFullYear());
     const events = Object.keys(eventsFromApi)
       .map(id => ({ ...eventsFromApi[id], id }))
-      .map(event => ({ description: event.description, image: event.image, title: event.title }));
+      .map(event => ({ 
+        description: event.description,
+        image: event.image,
+        title: event.title,
+        datetime: event.datetime && formatDatetime(event.datetime) 
+      }));
 
     dispatch({ type: FETCH_EVENTS_SUCCESS, payload: events });
   } catch (e) {

@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Content from '../../common/components/Content';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, CardHeader } from '@material-ui/core';
 
 const styles = {
   wrapper: {
@@ -37,17 +37,16 @@ class EventList extends Component {
             events.map(event =>
               <Col md={12}>
                 <Card className={classes.card}>
+                  <CardHeader
+                    title={event.title}
+                    subheader={event.datetime}
+                  />
                   <CardMedia
                     className={classes.media}
                     image={event.image}
-                    title={event.title}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {event.title}
-                    </Typography>
-                    <Typography component="p">{event.description}
-                    </Typography>
+                    <Typography component="p">{event.description}</Typography>
                   </CardContent>
                 </Card>
               </Col>
