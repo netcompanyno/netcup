@@ -25,6 +25,9 @@ class EventList extends Component {
   componentDidMount() {
     this.props.loadEvents();
   }
+  formatDatetime(date) {
+    return date && `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
+  }
   render() {
     const { classes, events, loading } = this.props;
     return (
@@ -39,7 +42,7 @@ class EventList extends Component {
                 <Card className={classes.card}>
                   <CardHeader
                     title={event.title}
-                    subheader={event.datetime}
+                    subheader={this.formatDatetime(event.datetime)}
                   />
                   <CardMedia
                     className={classes.media}
