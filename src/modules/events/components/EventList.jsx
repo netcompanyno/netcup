@@ -45,7 +45,7 @@ class EventList extends Component {
                     title={event.title}
                     subheader={this.formatDatetime(event.datetime)}
                   />
-                  <LazyLoad once throttle height={300}>
+                  <LazyLoad height={300}>
                     <CardMedia 
                       className={classes.media}
                       image={event.image}
