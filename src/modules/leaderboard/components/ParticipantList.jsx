@@ -23,7 +23,7 @@ class ParticipantsList extends Component {
           {loading &&
             <LinearProgress />
           }
-          <Col md={8} mdOffset={2}>
+          <Col md={6} mdOffset={3}>
             <List>
               {participants && participants.length ?
                 participants.map((participant, i) =>
