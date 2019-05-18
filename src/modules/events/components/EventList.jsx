@@ -53,7 +53,7 @@ class EventList extends Component {
         <Content className={classes.wrapper}>
           {events && events.length ?
             events.map(event =>
-              <Col md={6} mdOffset={3}>
+              <Col md={6} mdOffset={3} key={event.id}>
                 <Card className={eventIsBeforeToday(event.datetime) ? classes.disabledCard : classes.activeCard}>
                   <CardHeader
                     title={event.title}
