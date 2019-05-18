@@ -66,7 +66,7 @@ class EventList extends Component {
                     <Typography component="p">{event.description}</Typography>
                   </CardContent>
                   <CardActions>
-                    {eventLoading ?
+                    {event.loading ?
                       <div className={classes.spinner}>
                         <Button disabled className={classes.button}>
                           <CircularProgress className={classes.circularProgress} size={35} thickness={5} />

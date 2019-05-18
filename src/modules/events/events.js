@@ -18,7 +18,6 @@ const EVENT_SIGNOFF_FINISH = `${APP}/events/EVENT_SIGNOFF_FINISH`;
 
 const defaultState = {
   loading: false,
-  eventLoading: false,
   list: [],
 };
 
@@ -38,11 +37,21 @@ export default (state = defaultState, action) => {
     }
     case EVENT_SIGNUP_START:
     case EVENT_SIGNOFF_START: {
-      return { ...state, eventLoading: true };
+      const copy = [ ...state.list ];
+      const matchingEvent = copy.find(e => e.id === action.event.id);
+      if (copy) {
+        matchingEvent.loading = true;
+      }
+      return { ...state, list: copy };
     }
     case EVENT_SIGNUP_FINISH:
     case EVENT_SIGNOFF_FINISH: {
-      return { ...state, eventLoading: false };
+      const copy = [ ...state.list ];
+      const matchingEvent = copy.find(e => e.id === action.event.id);
+      if (copy) {
+        matchingEvent.loading = false;
+      }
+      return { ...state, list: copy };
     }
     case EVENT_SIGNUP_SUCCESS: {
       const copy = [ ...state.list ];
@@ -95,7 +104,7 @@ export const loadEvents = () => async dispatch => {
 };
 
 export const signup = event => async (dispatch, getState) => {
-  dispatch({ type: EVENT_SIGNUP_START });
+  dispatch({ type: EVENT_SIGNUP_START, event });
 
   try {
     const id = getState().auth.currentUser.uid;
@@ -109,12 +118,12 @@ export const signup = event => async (dispatch, getState) => {
   } catch (e) {
     dispatch({ type: EVENT_SIGNUP_FAILURE });
   } finally {
-    dispatch({ type: EVENT_SIGNUP_FINISH });
+    dispatch({ type: EVENT_SIGNUP_FINISH, event });
   }
 };
 
 export const signoff = event => async (dispatch, getState) => {
-  dispatch({ type: EVENT_SIGNOFF_START });
+  dispatch({ type: EVENT_SIGNOFF_START, event });
 
   try {
     const id = getState().auth.currentUser.uid;
@@ -128,6 +137,6 @@ export const signoff = event => async (dispatch, getState) => {
   } catch (e) {
     dispatch({ type: EVENT_SIGNOFF_FAILURE });
   } finally {
-    dispatch({ type: EVENT_SIGNOFF_FINISH });
+    dispatch({ type: EVENT_SIGNOFF_FINISH, event });
   }
 };
