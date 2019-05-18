@@ -12,7 +12,7 @@ import LazyLoad from 'react-lazyload';
 import Content from '../../common/components/Content';
 import { eventIsBeforeToday } from '../utils/dateutils';
 
-const styles = theme => ({
+const styles = {
   wrapper: {
     paddingTop: 8,
     paddingBottom: 2,
@@ -34,7 +34,7 @@ const styles = theme => ({
     marginBottom: 8,
     opacity: 1.0,
   },
-});
+};
 
 class EventList extends Component {
   componentDidMount() {
