@@ -1,6 +1,6 @@
 import { APP } from '../../constants';
-import { createUser } from '../../auth/firebase-service';
-import { verifyValidEmail } from '../../auth/util';
+import { createUser } from './services/auth-service';
+import { verifyValidEmail } from './utils/signup';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;
 const ERROR = `${APP}/signup/error`;

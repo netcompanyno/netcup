@@ -1,4 +1,4 @@
-import { login as firebaseLogin } from '../../auth/firebase-service';
+import { login as firebaseLogin } from './services/auth-service';
 import { APP } from '../../constants';
 import { updateCurrentUser, updateApiToken } from '../auth/auth';
 

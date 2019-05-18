@@ -1,4 +1,4 @@
-import firebase from '../firebase';
+import firebase from './firebase';
 import { updateCurrentUser, updateApiToken } from '../modules/auth/auth';
 
 const subscribeToUserChanged = (failure, success) => {
