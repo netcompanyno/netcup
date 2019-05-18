@@ -1,5 +1,5 @@
 import { APP } from '../../constants';
-import { fetchEvents, signupForEvent, signOffForEvent } from './services/event_service';
+import { fetchEvents, signupForEvent, signOffForEvent } from './services/event-service';
 import { sortEventsByDatetime } from './utils/dateutils';
 
 const FETCH_EVENTS_START = `${APP}/events/FETCH_EVENTS_START`;
