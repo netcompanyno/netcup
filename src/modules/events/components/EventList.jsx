@@ -39,7 +39,7 @@ class EventList extends Component {
         <Content className={classes.wrapper}>
           {events && events.length ?
             events.map(event =>
-              <Col md={12}>
+              <Col md={6} mdOffset={3}>
                 <Card className={classes.card}>
                   <CardHeader
                     title={event.title}
