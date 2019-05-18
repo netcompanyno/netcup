@@ -51,7 +51,6 @@ export const signup = (email, password) => async dispatch => {
     if (process.env.NODE_ENV !== 'development' && !verifyValidEmail(email)) {
       throw new Error({ message: 'Not a valid Netcompany email' });
     }
-
     await createUser(email, password);
     dispatch(signedUpSuccessfullyNotVerified);
   } catch (e) {

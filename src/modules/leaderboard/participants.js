@@ -29,15 +29,9 @@ export default (state = defaultState, action) => {
   }
 };
 
-export const loadParticipants = () => async (dispatch, getState) => {
+export const loadParticipants = () => async dispatch => {
   dispatch({ type: FETCH_PARTICIPANTS_START });
   try {
-    const token = getState().auth.token;
-    
-    if (!token) {
-      throw new Error('token for api calls not set');
-    }
-
     const participants = await fetchParticipants(new Date().getFullYear());
     const parsedParticipants = await Promise.all(parseParticipants(participants)
       .map(participant => fetchUser(participant.name)
