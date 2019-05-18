@@ -40,6 +40,7 @@ export default (state = defaultState, action) => {
     case EVENT_SIGNOFF_START: {
       const copy = [ ...state.list ];
       const matchingEvent = copy.find(e => e.id === action.event.id);
+      
       if (copy) {
         matchingEvent.loading = true;
       }
@@ -49,8 +50,9 @@ export default (state = defaultState, action) => {
     case EVENT_SIGNOFF_FINISH: {
       const copy = [ ...state.list ];
       const matchingEvent = copy.find(e => e.id === action.event.id);
+
       if (copy) {
-        matchingEvent.loading = false;
+        delete matchingEvent.loading;
       }
       return { ...state, list: copy };
     }
@@ -68,7 +70,7 @@ export default (state = defaultState, action) => {
       const matchingEvent = copy.find(e => e.id === action.event.id);
 
       if (matchingEvent) {
-        matchingEvent.participants[action.participantId] = false;
+        delete matchingEvent.participants[action.participantId];
       }
       return { ...state, list: copy };
     }
