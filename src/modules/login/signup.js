@@ -1,5 +1,5 @@
 import { APP } from '../../constants';
-import { createUser } from '../../auth/firebase-redux-integration';
+import { createUser } from '../../auth/firebase-service';
 import { verifyValidEmail } from '../../auth/util';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;

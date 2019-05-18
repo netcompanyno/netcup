@@ -1,7 +1,7 @@
 import firebase from '../firebase';
 import { updateCurrentUser, updateApiToken } from '../modules/auth/auth';
 
-export const subscribeToUserChanged = (failure, success) => {
+const subscribeToUserChanged = (failure, success) => {
   return firebase.auth().onAuthStateChanged(user => {
     if (user) {
       success(user);
@@ -11,24 +11,9 @@ export const subscribeToUserChanged = (failure, success) => {
   });
 };
 
-export const login = async (email, password) =>
-  firebase.auth().signInWithEmailAndPassword(email, password);
-
-export const createUser = async (email, password) => {
-  const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
-  if (!result || !result.user) {
-    throw new Error({ message: 'error during signup' });
-  }
-  return await result.user.sendEmailVerification({
-    url: `${process.env.SIGNUP_REDIRECT_URL}`,
-  });
-};
-
-export const setupStore = (store) =>
+const setupStore = store =>
   subscribeToUserChanged(
-    async () => {
-
-    },
+    async () => {},
     async user => {
       const { uid, email, emailVerified } = user;
       store.dispatch(updateCurrentUser({ uid, email, emailVerified }));
@@ -37,14 +22,4 @@ export const setupStore = (store) =>
       store.dispatch(updateApiToken(token));
     });
 
-const listeners = [
-  { integration: 'auth', registerStore: setupStore },
-];
-
-const registerListeners = store =>
-  listeners.forEach(listener => {
-    listener.registerStore(store);
-    console.log('module', listener.integration, 'registered with firebase');
-  });
-
-export default registerListeners;
+export default setupStore;
