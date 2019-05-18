@@ -29,6 +29,12 @@ export default (state = defaultState, action) => {
   }
 };
 
+const sortEventsByDatetime = (e1, e2) => {
+  if (e1.getTime() > e2.getTime()) return -1;
+  if (e1.getTime() < e2.getTime()) return 1;
+  return 0; 
+}
+
 export const loadEvents = () => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENTS_START });
   try {
@@ -41,7 +47,13 @@ export const loadEvents = () => async (dispatch, getState) => {
     const eventsFromApi = await fetchEvents(new Date().getFullYear());
     const events = Object.keys(eventsFromApi)
       .map(id => ({ ...eventsFromApi[id], id }))
-      .map(event => ({ description: event.description, image: event.image, title: event.title }));
+      .map(event => ({ 
+        description: event.description,
+        image: event.image,
+        title: event.title,
+        datetime: event.datetime && new Date(event.datetime)
+      }))
+      .sort((e1, e2) => sortEventsByDatetime(e1.datetime, e2.datetime));
 
     dispatch({ type: FETCH_EVENTS_SUCCESS, payload: events });
   } catch (e) {

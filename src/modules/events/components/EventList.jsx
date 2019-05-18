@@ -6,7 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Content from '../../common/components/Content';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, CardHeader } from '@material-ui/core';
+import LazyLoad from 'react-lazyload';
 
 const styles = {
   wrapper: {
@@ -25,6 +26,9 @@ class EventList extends Component {
   componentDidMount() {
     this.props.loadEvents();
   }
+  formatDatetime(date) {
+    return date && `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
+  }
   render() {
     const { classes, events, loading } = this.props;
     return (
@@ -37,17 +41,18 @@ class EventList extends Component {
             events.map(event =>
               <Col md={12}>
                 <Card className={classes.card}>
-                  <CardMedia
-                    className={classes.media}
-                    image={event.image}
+                  <CardHeader
                     title={event.title}
+                    subheader={this.formatDatetime(event.datetime)}
                   />
+                  <LazyLoad height={300}>
+                    <CardMedia 
+                      className={classes.media}
+                      image={event.image}
+                    />
+                  </LazyLoad>
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {event.title}
-                    </Typography>
-                    <Typography component="p">{event.description}
-                    </Typography>
+                    <Typography component="p">{event.description}</Typography>
                   </CardContent>
                 </Card>
               </Col>
