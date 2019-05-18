@@ -5,11 +5,12 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Content from '../../common/components/Content';
 import { LinearProgress, CardHeader, CardActions, Button, CircularProgress } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import LazyLoad from 'react-lazyload';
+import Content from '../../common/components/Content';
+import { eventIsBeforeToday } from '../utils/dateutils';
 
 const styles = theme => ({
   wrapper: {
@@ -41,7 +42,7 @@ class EventList extends Component {
     return date && `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
   }
   render() {
-    const { classes, events, loading, signup, signoff, id, eventLoading } = this.props;
+    const { classes, events, loading, signup, signoff, id } = this.props;
     return (
       <div>
         {loading &&
@@ -67,22 +68,24 @@ class EventList extends Component {
                   </CardContent>
                   <CardActions>
                     {event.loading ?
-                      <div className={classes.spinner}>
-                        <Button disabled className={classes.button}>
-                          <CircularProgress className={classes.circularProgress} size={35} thickness={5} />
-                        </Button>
-                      </div>
+                      <Button disabled className={classes.button}>
+                        <CircularProgress className={classes.circularProgress} size={35} thickness={5} />
+                      </Button>
                       : event.participants[id] ?
                         <Button color="primary"
                           aria-label="signoff"
+                          disabled={eventIsBeforeToday(event.datetime)}
                           className={classes.button}
                           onClick={() => signoff(event)}>
-                          Going
+                          {eventIsBeforeToday(event.datetime) ? 'You went' : 'Going'}
                           <CheckIcon className={classes.rightIcon} />
                         </Button>
+                      : eventIsBeforeToday(event.datetime) ?
+                        undefined
                       :
                       <Button color="primary"
                         aria-label="signup"
+                        disabled={eventIsBeforeToday(event.datetime)}                        
                         className={classes.button}
                         onClick={() => signup(event)}>
                         Signup

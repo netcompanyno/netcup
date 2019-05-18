@@ -1,5 +1,6 @@
 import { APP } from '../../constants';
 import { fetchEvents, signupForEvent, signOffForEvent } from './services/event-service';
+import { sortEventsByDatetime } from './utils/dateutils';
 
 const FETCH_EVENTS_START = `${APP}/events/FETCH_EVENTS_START`;
 const FETCH_EVENTS_SUCCESS = `${APP}/events/FETCH_EVENTS_SUCCESS`;
@@ -74,12 +75,6 @@ export default (state = defaultState, action) => {
     default: return state;
   }
 };
-
-const sortEventsByDatetime = (e1, e2) => {
-  if (e1.getTime() > e2.getTime()) return -1;
-  if (e1.getTime() < e2.getTime()) return 1;
-  return 0;
-}
 
 export const loadEvents = () => async dispatch => {
   dispatch({ type: FETCH_EVENTS_START });
