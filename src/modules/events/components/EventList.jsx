@@ -17,20 +17,22 @@ const styles = theme => ({
     paddingTop: 8,
     paddingBottom: 2,
   },
-  card: {
-    marginBottom: 8,
-  },
   media: {
     height: 180,
-  },
-  button: {
-    margin: theme.spacing.unit,
   },
   rightIcon: {
     marginLeft: 3,
   },
   circularProgress: {
     marginLeft: 6,
+  },
+  disabledCard: {
+    marginBottom: 8,
+    opacity: 0.5,
+  },
+  activeCard: {
+    marginBottom: 8,
+    opacity: 1.0,
   },
 });
 
@@ -52,7 +54,7 @@ class EventList extends Component {
           {events && events.length ?
             events.map(event =>
               <Col md={6} mdOffset={3}>
-                <Card className={classes.card}>
+                <Card className={eventIsBeforeToday(event.datetime) ? classes.disabledCard : classes.activeCard}>
                   <CardHeader
                     title={event.title}
                     subheader={this.formatDatetime(event.datetime)}
@@ -88,7 +90,7 @@ class EventList extends Component {
                         disabled={eventIsBeforeToday(event.datetime)}                        
                         className={classes.button}
                         onClick={() => signup(event)}>
-                        Signup
+                        Register
                         <AddIcon className={classes.rightIcon} />
                       </Button>
                     }
