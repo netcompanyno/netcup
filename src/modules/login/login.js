@@ -1,4 +1,4 @@
-import { login as firebaseLogin } from '../../firebase';
+import { login as firebaseLogin } from '../../auth/firebase-redux-integration';
 import { APP } from '../../constants';
 import { updateCurrentUser, updateApiToken } from '../auth/auth';
 
