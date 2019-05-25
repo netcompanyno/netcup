@@ -35,7 +35,9 @@ export const loadParticipants = () => async dispatch => {
     const participants = await fetchParticipants(new Date().getFullYear());
     const parsedParticipants = await Promise.all(parseParticipants(participants)
       .map(participant => fetchUser(participant.name)
-      .then(user => ({ ...participant, fullname: `${user.firstname} ${user.lastname}`, image: user && user.image || defaultProfileImage }))));
+      .then(user => ({ ...participant, fullname: `${user.firstname} ${user.lastname}`, image: user && user.image || defaultProfileImage }))
+      .catch(() => ({ ...participant, fullname: '[no user found]', image: defaultProfileImage }))
+    ));
 
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
