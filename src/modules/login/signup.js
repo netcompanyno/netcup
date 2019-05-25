@@ -42,7 +42,7 @@ export default function reducer(state = defaultState, action) {
 const startSignup = ({ type: START_SIGNUP });
 const finishedSignup = ({ type: FINISHED_SIGNUP });
 const signedUpSuccessfullyNotVerified = { type: SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED };
-const error = error => ({ type: ERROR, payload: error });
+export const error = error => ({ type: ERROR, payload: error });
 export const dismissErrorMessage = { type: DISMISS_ERROR_MESSAGE };
 
 export const signup = (email, password) => async dispatch => {
