@@ -1,5 +1,6 @@
 import firebase from '../../../firebase/firebase';
 import { SIGNUP_VERIFICATION } from '../../../routing';
+import { extractUserName } from '../utils/signup';
 
 export const login = async (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
@@ -18,6 +19,7 @@ export const registerUser = async userId => {
   }
 
   return firebase.database().ref(`users/${userId}`).set({
+    username: extractUserName(firebase.auth().currentUser.email),
     created: new Date().getTime(),
   });
 };
