@@ -1,6 +1,6 @@
 import { fetchUser } from '../common/services/user-service';
 import { fetchParticipants } from './services/participant-service';
-import { parseParticipants } from './utilities/participant-parser';
+import { parseFirebasePayload } from '../common/utils/firebase-payload-parser';
 import defaultProfileImage from './assets/images/default_profile_image.jpg';
 
 const FETCH_PARTICIPANTS_START = 'netcup/leaderboard/FETCH_PARTICIPANTS_START';
@@ -34,7 +34,7 @@ export const loadParticipants = () => async dispatch => {
   dispatch({ type: FETCH_PARTICIPANTS_START });
   try {
     const participants = await fetchParticipants(new Date().getFullYear());
-    const parsedParticipants = await Promise.all(parseParticipants(participants)
+    const parsedParticipants = await Promise.all(parseFirebasePayload(participants)
       .map(participant => fetchUser(participant.id)
         .then(user => ({ ...participant, fullname: user.username, image: user && user.image || defaultProfileImage }))
         .catch(() => ({ ...participant, fullname: '[no user found]', image: defaultProfileImage }))
