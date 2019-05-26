@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, Typography, IconButton, Drawer, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Toolbar, Typography, IconButton, Drawer, ListItem, ListItemText } from '@material-ui/core';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
