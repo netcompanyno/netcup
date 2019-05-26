@@ -1,6 +1,6 @@
-import { login as firebaseLogin } from '../../firebase';
+import { login as firebaseLogin } from './services/auth-service';
 import { APP } from '../../constants';
-import { updateCurrentUser, updateApiToken } from '../auth/auth';
+import { updateCurrentUser } from '../auth/auth';
 
 const START_LOGIN = `${APP}/login/startLogin`;
 const LOGIN_SUCCESS = `${APP}/login/loginSuccess`;
@@ -47,12 +47,9 @@ export const login = (userEmail, password, redirect) => async dispatch => {
   try {
     const res = await firebaseLogin(userEmail, password);
     const { uid, email, displayName, emailVerified } = res.user;
-    const token = await res.user.getIdToken();
 
     dispatch(updateCurrentUser({ uid, email, displayName, emailVerified }));
-    dispatch(updateApiToken(token));
     dispatch(loginSuccess);
-
     redirect();
   } catch (e) {
     dispatch(loginFailure(e));

@@ -1,6 +1,6 @@
 import { APP } from '../../constants';
-import { createUser } from '../../firebase';
-import { verifyValidEmail } from '../../auth/util';
+import { createUser } from './services/auth-service';
+import { verifyValidEmail } from './utils/signup';
 
 const SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED = `${APP}/signup/successful_signup_not_verified`;
 const ERROR = `${APP}/signup/error`;
@@ -42,7 +42,7 @@ export default function reducer(state = defaultState, action) {
 const startSignup = ({ type: START_SIGNUP });
 const finishedSignup = ({ type: FINISHED_SIGNUP });
 const signedUpSuccessfullyNotVerified = { type: SIGNED_SUCCESSFULLY_UP_NOT_VERIFIED };
-const error = error => ({ type: ERROR, payload: error });
+export const error = error => ({ type: ERROR, payload: error });
 export const dismissErrorMessage = { type: DISMISS_ERROR_MESSAGE };
 
 export const signup = (email, password) => async dispatch => {
@@ -51,7 +51,6 @@ export const signup = (email, password) => async dispatch => {
     if (process.env.NODE_ENV !== 'development' && !verifyValidEmail(email)) {
       throw new Error({ message: 'Not a valid Netcompany email' });
     }
-
     await createUser(email, password);
     dispatch(signedUpSuccessfullyNotVerified);
   } catch (e) {

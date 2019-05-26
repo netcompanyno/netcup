@@ -7,7 +7,8 @@ import Leaderboard from './modules/leaderboard';
 import Login from './modules/login';
 import Events from './modules/events';
 import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
-import { LOGIN, LEADERBOARD, EVENTS } from './routing';
+import SignupVerification from './modules/login/containers/SignupVerification';
+import { LOGIN, LEADERBOARD, EVENTS, SIGNUP_VERIFICATION } from './routing';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
               <Route path={LOGIN} component={Login} />
               <PrivateRoute path={LEADERBOARD} exact component={Leaderboard} />
               <PrivateRoute path={EVENTS} exact component={Events} />
+              <PrivateRoute path={SIGNUP_VERIFICATION} component={SignupVerification} />
             </Switch>
             <BottomNavigationBar />
           </div>

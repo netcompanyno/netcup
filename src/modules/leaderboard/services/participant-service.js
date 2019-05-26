@@ -1,4 +1,4 @@
-import firebase from '../../../firebase';
+import firebase from '../../../firebase/firebase';
 
 export const fetchParticipants = async year => {
   try {
@@ -9,9 +9,9 @@ export const fetchParticipants = async year => {
   }
 }
 
-export const fetchUser = async name => {
+export const fetchUser = async id => {
   try {
-    const snapshot = await firebase.database().ref(`users/${name}`).once('value');
+    const snapshot = await firebase.database().ref(`users/${id}`).once('value');
     return snapshot.val();
   } catch (e) {
     throw new Error(e);
