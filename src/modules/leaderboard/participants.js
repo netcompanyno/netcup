@@ -1,4 +1,5 @@
-import { fetchParticipants, fetchUser } from './services/participant-service';
+import { fetchUser } from '../common/services/user-service';
+import { fetchParticipants } from './services/participant-service';
 import { parseParticipants } from './utilities/participant-parser';
 import defaultProfileImage from './assets/images/default_profile_image.jpg';
 
