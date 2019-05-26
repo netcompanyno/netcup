@@ -3,6 +3,7 @@ export const LEADERBOARD = '/';
 export const EVENTS = '/events';
 export const PROFILE = '/profile';
 export const SIGNUP_VERIFICATION = '/verify';
+export const ASSIGN_POINTS = '/admin/assign-points';
 
 const redirectLocation = location => {
   if (location.state && location.state.from) {
