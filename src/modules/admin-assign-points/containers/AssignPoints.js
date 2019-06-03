@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import AssignPoints from '../components/AssignPoints';
-import { assignPoints } from '../points';
+import { assignPoints, dismissUpdate } from '../points';
 import { loadEvents } from '../../events/events';
 import { loadUsers } from '../users';
 import { parseFirebasePayload } from '../../common/utils/firebase-payload-parser';
@@ -23,10 +23,11 @@ const collapseEvents = (events, users) => {
 
 export default withRouter(connect(
   state => ({
-    loading: state.events.loading || state.users.loading,
+    loading: state.events.loading || state.users.loading || state.points.loading,
     events: collapseEvents(state.events.list, state.users.list),
     eventsPresent: state.events.list && state.events.list.length,
-    usersPresent: state.users.list && state.users.list.length
+    usersPresent: state.users.list && state.users.list.length,
+    showSnackbar: state.points.updated,
   }),
   dispatch => ({
     load: async (eventsPresent, usersPresent) => {
@@ -38,5 +39,6 @@ export default withRouter(connect(
       }
     },
     assignPoints: async (eventId, userId, points) => dispatch(assignPoints(eventId, userId, points)),
+    dismissSnackbar: () => dispatch(dismissUpdate),
   })
 )(AssignPoints));

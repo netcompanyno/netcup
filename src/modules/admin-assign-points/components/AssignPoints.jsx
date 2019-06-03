@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Select from 'react-select';
-import { TextField, Button, CircularProgress, FormLabel, FormGroup } from '@material-ui/core';
+import { TextField, Button, CircularProgress, FormLabel, FormGroup, Snackbar } from '@material-ui/core';
 import { Row, Col } from 'react-flexbox-grid';
 
 const styles = {
@@ -74,99 +74,102 @@ class AssignPoints extends Component {
   }
 
   render() {
-    const { classes, loading, assignPoints, events } = this.props;
+    const { classes, loading, assignPoints, events, showSnackbar, dismissSnackbar } = this.props;
     return (
-      <form className={classes.form} onSubmit={e => e.preventDefault()}>
-        <Row>
-          <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
-            <FormGroup className={classes.formGroup}>
-              <FormLabel required>Event</FormLabel>
-              <Select
-                value={this.state.selectedEvent}
-                type="search"
-                placeholder="Search for event title"
-                isClearable
-                isSearchable
-                loading={loading}
-                disabled={loading}
-                options={events.map(event => ({
-                  value: event.id,
-                  label: event.title,
-                }))}
-                onChange={(event, e) => this.selectEvent(event, e)}
-                className={classes.formInput}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
-            <FormGroup className={classes.formGroup}>
-              <FormLabel required>Participant</FormLabel>
-              <Select
-                value={this.state.selectedParticipant}
-                type="search"
-                placeholder="Search for participant id"
-                isClearable
-                isSearchable
-                loading={loading}
-                disabled={loading}
-                options={this.findParticipantsForEvents(this.state.selectedEvent).map(participant => ({
-                  value: participant.id,
-                  label: participant.fullname,
-                }))}
-                onChange={(participant, e) => this.selectParticipant(this.state.selectedEvent, participant, e)}
-                className={classes.formInput}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
-            <FormGroup className={classes.formGroup}>
-              <FormLabel required>Points</FormLabel>
-              <TextField
-                type="number"
-                placeholder="Enter points to give participant"
-                fullWidth
-                required
-                value={this.state.points}
-                onChange={e => this.setState({ points: parseInt(e.target.value, 10) })}
-                className={classes.formInput}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        {loading ?
-          <div className={classes.loading}>
-            <CircularProgress size={75} thickness={5} />
-          </div>
-          :
+      <div>
+        <Snackbar open={showSnackbar} message="Successfully updated points" autoHideDuration={1500} onClose={dismissSnackbar} />
+        <form className={classes.form}>
           <Row>
-            <Col xs sm={6} smOffset={3} lg={1} lgOffset={7}>
-              <Button
-                className={classes.button}
-                onClick={() => {
-                  const { selectedParticipant, selectedEvent, points } = this.state;
-                  assignPoints(selectedEvent.value, selectedParticipant.value, points);
-                  this.setState({ selectedEvent: '', selectedParticipant: '', points: '' });
-                }}
-                disabled={
-                  loading || 
-                  (!this.state.selectedEvent || !this.state.selectedEvent.value) || 
-                  (!this.state.selectedParticipant || !this.state.selectedParticipant.value) ||
-                  !this.state.points
-                }
-                fullWidth
-                size="large"
-                variant="contained"
-                color="primary">
-                Save
-              </Button>
+            <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
+              <FormGroup className={classes.formGroup}>
+                <FormLabel required>Event</FormLabel>
+                <Select
+                  value={this.state.selectedEvent}
+                  type="search"
+                  placeholder="Search for event title"
+                  isClearable
+                  isSearchable
+                  loading={loading}
+                  disabled={loading}
+                  options={events.map(event => ({
+                    value: event.id,
+                    label: event.title,
+                  }))}
+                  onChange={(event, e) => this.selectEvent(event, e)}
+                  className={classes.formInput}
+                />
+              </FormGroup>
             </Col>
           </Row>
-        }
-      </form>
+          <Row>
+            <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
+              <FormGroup className={classes.formGroup}>
+                <FormLabel required>Participant</FormLabel>
+                <Select
+                  value={this.state.selectedParticipant}
+                  type="search"
+                  placeholder="Search for participant id"
+                  isClearable
+                  isSearchable
+                  loading={loading}
+                  disabled={loading}
+                  options={this.findParticipantsForEvents(this.state.selectedEvent).map(participant => ({
+                    value: participant.id,
+                    label: participant.fullname,
+                  }))}
+                  onChange={(participant, e) => this.selectParticipant(this.state.selectedEvent, participant, e)}
+                  className={classes.formInput}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
+              <FormGroup className={classes.formGroup}>
+                <FormLabel required>Points</FormLabel>
+                <TextField
+                  type="number"
+                  placeholder="Enter points to give participant"
+                  fullWidth
+                  required
+                  value={this.state.points}
+                  onChange={e => this.setState({ points: e.target.value })}
+                  className={classes.formInput}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          {loading ?
+            <div className={classes.loading}>
+              <CircularProgress size={75} thickness={5} />
+            </div>
+            :
+            <Row>
+              <Col xs sm={6} smOffset={3} lg={1} lgOffset={7}>
+                <Button
+                  className={classes.button}
+                  onClick={() => {
+                    const { selectedParticipant, selectedEvent, points } = this.state;
+                    assignPoints(selectedEvent.value, selectedParticipant.value, points);
+                    this.setState({ selectedEvent: '', selectedParticipant: '', points: '' });
+                  }}
+                  disabled={
+                    loading || 
+                    (!this.state.selectedEvent || !this.state.selectedEvent.value) || 
+                    (!this.state.selectedParticipant || !this.state.selectedParticipant.value) ||
+                    !this.state.points
+                  }
+                  fullWidth
+                  size="large"
+                  variant="contained"
+                  color="primary">
+                  Save
+                </Button>
+              </Col>
+            </Row>
+          }
+        </form>
+      </div>
     );
   }
 }
