@@ -1,1 +1,1 @@
-export const parseFirebasePayload = participants => Object.keys(participants).map(id => ({ ...participants[id], id }));
+export const parseFirebasePayload = object => Object.keys(object).map(id => ({ ...object[id], id }));
