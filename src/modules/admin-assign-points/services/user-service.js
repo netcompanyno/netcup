@@ -1,8 +1,8 @@
 import firebase from '../../../firebase/firebase';
 
-export const fetchUser = async id => {
+export const fetchUsers = async () => {
   try {
-    const snapshot = await firebase.database().ref(`users/${id}`).once('value');
+    const snapshot = await firebase.database().ref(`users`).once('value');
     return snapshot.val();
   } catch (e) {
     throw new Error(e);

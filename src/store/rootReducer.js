@@ -5,6 +5,8 @@ import signup from '../modules/login/signup';
 import auth from '../modules/auth/auth';
 import login from '../modules/login/login';
 import events from '../modules/events/events';
+import points from '../modules/admin-assign-points/points';
+import users from '../modules/admin-assign-points/users';
 
 export default combineReducers({
   leaderboard,
@@ -12,4 +14,6 @@ export default combineReducers({
   auth,
   login,
   events,
+  points,
+  users,
 });

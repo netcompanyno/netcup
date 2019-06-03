@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
-import { Toolbar, Typography, IconButton, Drawer, ListItem, ListItemText } from '@material-ui/core';
+import { Toolbar, Typography, IconButton, Drawer, ListItem, ListItemText, Divider } from '@material-ui/core';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
+import FormatListNumberedRtlIcon from '@material-ui/icons/FormatListNumberedRtl';
+import EventIcon from '@material-ui/icons/Event';
+import ProfileIcon from '@material-ui/icons/PortraitRounded';
 
 const styles = {
   iconButton: {
@@ -30,6 +33,8 @@ class CustomAppBar extends Component {
     };
   }
 
+  toggleState = open => this.setState({ open });
+
   menuOptions() {
     const clickMenuOption = onClick => {
       this.toggleState(false);
@@ -42,13 +47,38 @@ class CustomAppBar extends Component {
           <ExposurePlus1Icon />
           <ListItemText>Assign points</ListItemText>
         </ListItem>
-      )
+      ),
     ];
-    const ordinaryOptions = [];
+    
+    const ordinaryOptions = [
+      (
+        <ListItem button onClick={() => clickMenuOption(this.props.goToLeaderBoard)}>
+          <FormatListNumberedRtlIcon />
+          <ListItemText>Leaderboards</ListItemText>
+        </ListItem>
+      ),
+      (
+        <ListItem button onClick={() => clickMenuOption(this.props.goToEvents)}>
+          <ProfileIcon />
+          <ListItemText>Events</ListItemText>
+        </ListItem>
+      ),
+      (
+        <ListItem button onClick={() => clickMenuOption(this.props.goToProfile)}>
+          <EventIcon />
+          <ListItemText>Profile</ListItemText>
+        </ListItem>
+      ),
+    ];
+
     let options = [...ordinaryOptions];
 
     if (this.props.isAdmin) {
-      options = [...ordinaryOptions, ...adminOptions];
+      options = [
+        ...ordinaryOptions,
+        (<Divider />),
+        ...adminOptions
+      ];
     }
 
     return options.map((listItem, i) => (
@@ -56,28 +86,26 @@ class CustomAppBar extends Component {
     ));
   }
 
-  toggleState(open) {
-    this.setState({ open });
-  }
-
   render() {
-    const { classes, title } = this.props;
+    const { classes, title, show } = this.props;
     const { open } = this.state;
     const menuOptions = this.menuOptions();
-    const hasMenuOptions = menuOptions && menuOptions.length;
+    const hasMenuOptions = show && menuOptions && menuOptions.length;
     return (
       <AppBar position="static">
         <Toolbar className={hasMenuOptions ? classes.toolbar : ''}>
-          {hasMenuOptions ?
+          {hasMenuOptions &&
             <IconButton edge="start" className={classes.iconButton}>
               <MenuIcon onClick={() => this.toggleState(true)} />
             </IconButton>
-            :
-            undefined
           }
-        <Typography variant="title" color="inherit">{title}</Typography>
+          <Typography variant="title" color="inherit">{title}</Typography>
         </Toolbar>
-        <Drawer open={open} className={open ? classes.showDrawer : ''} onClose={() => this.toggleState(false)}>
+        <Drawer
+          open={open}
+          className={open ? classes.showDrawer : ''}
+          onClose={() => this.toggleState(false)}
+        >
           <div className={classes.list} role="presentation">
             <List>
               {menuOptions}

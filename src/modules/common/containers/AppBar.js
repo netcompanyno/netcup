@@ -1,11 +1,15 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import AppBar from '../components/AppBar';
-import { push, ASSIGN_POINTS } from '../../../routing';
+import { push, ASSIGN_POINTS, LEADERBOARD, EVENTS, PROFILE } from '../../../routing';
 
 export default withRouter(connect(
   (state, ownProps) => ({
-    isAdmin: state.auth.loggedIn && state.auth.currentUser.isAdmin,
-    goToPoints: () => push(ASSIGN_POINTS, ownProps.history),
+    show: state.auth.loggedIn,
+    isAdmin: state.auth.currentUser && state.auth.currentUser.isAdmin,
+    goToPoints: () => push({ ...ownProps.location, pathname: ASSIGN_POINTS }, ownProps.history),
+    goToLeaderBoard: () => push({ ...ownProps.location, pathname: LEADERBOARD }, ownProps.history),
+    goToEvents: () => push({ ...ownProps.location, pathname: EVENTS }, ownProps.history),
+    goToProfile: () => push({ ...ownProps.location, pathname: PROFILE }, ownProps.history),
   }),
 )(AppBar));
