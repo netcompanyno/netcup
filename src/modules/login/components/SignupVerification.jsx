@@ -32,13 +32,15 @@ class SignupVerification extends Component {
   render() {
     const { classes, showErrorMessage, errorMessage } = this.props;
     return (
-      <Content className={classes.wrapper}>
-        <Snackbar open={showErrorMessage} message={errorMessage} />        
-        <div className={classes.child}>
-          <CircularProgress size={100} thickness={4} />
-          <Typography variant="body1" gutterBottom className={classes.text}>
-            Finishing up registration
-          </Typography>
+      <Content>
+        <div className={classes.wrapper}>
+          <Snackbar open={showErrorMessage} message={errorMessage} />        
+          <div className={classes.child}>
+            <CircularProgress size={100} thickness={4} />
+            <Typography variant="body1" gutterBottom className={classes.text}>
+              Finishing up registration
+            </Typography>
+          </div>
         </div>
       </Content>
     );
