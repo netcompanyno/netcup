@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Select from 'react-select';
 import { TextField, Button, CircularProgress, FormLabel, FormGroup, Snackbar } from '@material-ui/core';
 import { Row, Col } from 'react-flexbox-grid';
+import Content from '../../common/containers/Content';
 
 const styles = {
   form: {
@@ -76,7 +77,7 @@ class AssignPoints extends Component {
   render() {
     const { classes, loading, assignPoints, events, showSnackbar, dismissSnackbar } = this.props;
     return (
-      <div>
+      <Content>
         <Snackbar open={showSnackbar} message="Successfully updated points" autoHideDuration={1500} onClose={dismissSnackbar} />
         <form className={classes.form}>
           <Row>
@@ -169,7 +170,7 @@ class AssignPoints extends Component {
             </Row>
           }
         </form>
-      </div>
+      </Content>
     );
   }
 }
