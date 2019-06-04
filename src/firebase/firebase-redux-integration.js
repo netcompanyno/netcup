@@ -16,9 +16,17 @@ const setupStore = store =>
   subscribeToUserChanged(
     async () => {},
     async user => {
+      console.log('user changed. Updating...');
       const { uid, email, emailVerified } = user;
-      const userInfo = await fetchUser(uid);
-      store.dispatch(updateCurrentUser({ uid, email, emailVerified, isAdmin: userInfo.admin || false }));
+      let isAdmin = false;
+      try {
+        const userInfo = await fetchUser(uid);
+        isAdmin = userInfo && !!userInfo.admin; 
+      } catch (e) {
+        console.log('error while updating user');
+      } finally {
+        store.dispatch(updateCurrentUser({ uid, email, emailVerified, isAdmin }));
+      }
     });
 
 export default setupStore;
