@@ -1,5 +1,5 @@
-import { fetchParticipants, fetchUser } from './services/participant-service';
-import { parseParticipants } from './utilities/participant-parser';
+import { fetchUser } from '../common/services/user-service';
+import { fetchParticipants } from './services/participant-service';
 import defaultProfileImage from './assets/images/default_profile_image.jpg';
 
 const FETCH_PARTICIPANTS_START = 'netcup/leaderboard/FETCH_PARTICIPANTS_START';
@@ -29,19 +29,27 @@ export default (state = defaultState, action) => {
   }
 };
 
+const formatParticipants = async participants => {
+  const parsedParticipants = [];
+  for (const [userId, points] of Object.entries(participants)) {
+    try {
+      const user = await fetchUser(userId);
+      parsedParticipants.push({ id: userId, fullname: user.username, image: user && user.image || defaultProfileImage, points });
+    } catch (e) {
+      parsedParticipants.push({ id: userId, fullname: '[no username found]', image: defaultProfileImage, points });
+    }
+  }
+
+  return parsedParticipants;
+}
+
 export const loadParticipants = () => async dispatch => {
   dispatch({ type: FETCH_PARTICIPANTS_START });
   try {
     const participants = await fetchParticipants(new Date().getFullYear());
-    const parsedParticipants = await Promise.all(parseParticipants(participants)
-      .map(participant => fetchUser(participant.id)
-        .then(user => ({ ...participant, fullname: user.username, image: user && user.image || defaultProfileImage }))
-        .catch(() => ({ ...participant, fullname: '[no user found]', image: defaultProfileImage }))
-    ));
-
+    const parsedParticipants = await formatParticipants(participants);
     dispatch({ type: FETCH_PARTICIPANTS_SUCCESS, payload: parsedParticipants });
   } catch (e) {
-    console.error(e);
     dispatch({ type: FETCH_PARTICIPANTS_FAILURE });
   }
   dispatch({ type: FETCH_PARTICIPANTS_FINISH });

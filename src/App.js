@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-import AppBar from '@material-ui/core/AppBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Toolbar, Typography } from '@material-ui/core';
+import { Hidden } from '@material-ui/core';
+import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
 import { PrivateRoute } from './modules/auth';
 import Leaderboard from './modules/leaderboard';
 import Login from './modules/login';
 import Events from './modules/events';
-import BottomNavigationBar from './modules/common/containers/BottomNavigationBar';
+import AssignPoints from './modules/admin-assign-points';
+import AppBar from './modules/common/containers/AppBar';
 import SignupVerification from './modules/login/containers/SignupVerification';
-import { LOGIN, LEADERBOARD, EVENTS, SIGNUP_VERIFICATION } from './routing';
+import { LOGIN, LEADERBOARD, EVENTS, SIGNUP_VERIFICATION, ASSIGN_POINTS } from './routing';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="title" color="inherit">{this.props.title}</Typography>
-          </Toolbar>
-        </AppBar>
         <Router>
           <div>
+            <AppBar title="NetCup" />
             <Switch>
               <Route path={LOGIN} component={Login} />
               <PrivateRoute path={LEADERBOARD} exact component={Leaderboard} />
               <PrivateRoute path={EVENTS} exact component={Events} />
-              <PrivateRoute path={SIGNUP_VERIFICATION} component={SignupVerification} />
+              <PrivateRoute path={SIGNUP_VERIFICATION} exact component={SignupVerification} />
+              <PrivateRoute path={ASSIGN_POINTS} exact component={AssignPoints} adminOnly />
             </Switch>
-            <BottomNavigationBar />
+            <Hidden mdUp>
+              <BottomNavigationBar />
+            </Hidden>
           </div>
         </Router>
       </div>

@@ -3,8 +3,12 @@
 
 body {
   margin: 0;
-  padding: 0;
   font-family: sans-serif;
+  // These two also fix the Drawer component from Material UI.
+  // Without this the overflow and padding is never reset when
+  // closing the Drawer-menu on the left. 
+  padding: 0 !important;
+  overflow-y: visible !important;
 }
 
 .App {

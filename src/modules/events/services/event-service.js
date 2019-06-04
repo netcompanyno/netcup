@@ -20,4 +20,4 @@ const toggleSignup = (year, eventId, userId, signup) => {
 };
 
 export const signupForEvent = async (year, eventId, userid) => toggleSignup(year, eventId, userid, true);
-export const signOffForEvent = async (year, eventId, userid) => toggleSignup(year, eventId, userid, false);
+export const signOffForEvent = async (year, eventId, userid) => toggleSignup(year, eventId, userid, null);

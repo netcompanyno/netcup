@@ -1,12 +1,11 @@
 import { login as firebaseLogin } from './services/auth-service';
 import { APP } from '../../constants';
-import { updateCurrentUser } from '../auth/auth';
 
 const START_LOGIN = `${APP}/login/startLogin`;
 const LOGIN_SUCCESS = `${APP}/login/loginSuccess`;
 const LOGIN_FAILURE = `${APP}/login/loginFailure`;
 const LOGIN_FINISH = `${APP}/login/finishedLogin`;
-const DISMISS_ERROR_MESSAGE = `${APP}/login/dismiss_error_message`;
+const DISMISS_ERROR_MESSAGE = `${APP}/login/dismissErrorMessage`;
 
 const defaultState = {
   loading: false,
@@ -20,7 +19,7 @@ export default function reducer(state = defaultState, action) {
       return { ...state, loading: true, showErrorMessage: false, errorMessage: '' };
     }
     case LOGIN_SUCCESS: {
-      return state;
+      return { ...state };
     }
     case LOGIN_FAILURE: {
       return { ...state, showErrorMessage: true, errorMessage: action.payload.message };
@@ -43,12 +42,8 @@ export const dismissErrorMessage = { type: DISMISS_ERROR_MESSAGE };
 
 export const login = (userEmail, password, redirect) => async dispatch => {
   dispatch(startLogin);
-
   try {
-    const res = await firebaseLogin(userEmail, password);
-    const { uid, email, displayName, emailVerified } = res.user;
-
-    dispatch(updateCurrentUser({ uid, email, displayName, emailVerified }));
+    await firebaseLogin(userEmail, password);
     dispatch(loginSuccess);
     redirect();
   } catch (e) {
