@@ -2,6 +2,7 @@ import { login as firebaseLogin } from './services/auth-service';
 import { APP } from '../../constants';
 
 const START_LOGIN = `${APP}/login/startLogin`;
+const LOGIN_SUCCESS = `${APP}/login/loginSuccess`;
 const LOGIN_FAILURE = `${APP}/login/loginFailure`;
 const LOGIN_FINISH = `${APP}/login/finishedLogin`;
 const DISMISS_ERROR_MESSAGE = `${APP}/login/dismissErrorMessage`;
@@ -17,6 +18,9 @@ export default function reducer(state = defaultState, action) {
     case START_LOGIN: {
       return { ...state, loading: true, showErrorMessage: false, errorMessage: '' };
     }
+    case LOGIN_SUCCESS: {
+      return { ...state };
+    }
     case LOGIN_FAILURE: {
       return { ...state, showErrorMessage: true, errorMessage: action.payload.message };
     }
@@ -31,6 +35,7 @@ export default function reducer(state = defaultState, action) {
 }
 
 const startLogin = { type: START_LOGIN };
+const loginSuccess = { type: LOGIN_SUCCESS };
 const loginFailure = ({ code, message }) => ({ type: LOGIN_FAILURE, payload: { code, message } });
 const finishedLogin = { type: LOGIN_FINISH };
 export const dismissErrorMessage = { type: DISMISS_ERROR_MESSAGE };
@@ -39,6 +44,7 @@ export const login = (userEmail, password, redirect) => async dispatch => {
   dispatch(startLogin);
   try {
     await firebaseLogin(userEmail, password);
+    dispatch(loginSuccess);
     redirect();
   } catch (e) {
     dispatch(loginFailure(e));

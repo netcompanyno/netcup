@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import { Col } from 'react-flexbox-grid/lib';
 import { LinearProgress } from '@material-ui/core';
 import ParticipantsListItem from './ParticipantListItem';
-import Content from '../../common/components/Content';
+import Content from '../../common/containers/Content';
 
 class ParticipantsList extends Component {
   componentDidMount() {
@@ -18,26 +18,24 @@ class ParticipantsList extends Component {
     } = this.props;
 
     return (
+      loading ?
+      <LinearProgress />
+      :
       <Content>
-        <section>
-          {loading &&
-            <LinearProgress />
-          }
-          <Col md={6} mdOffset={3}>
-            <List>
-              {participants && participants.length ?
-                participants.map((participant, i) =>
-                  <article key={i}>
-                    <ParticipantsListItem
-                      name={participant.fullname}
-                      avatar={participant.image}
-                      points={participant.points} />
-                  </article>
-                ) : undefined
-              }
-            </List>
-          </Col>
-        </section>
+        <Col md={6} mdOffset={3}>
+          <List>
+            {participants && participants.length ?
+              participants.map((participant, i) =>
+                <article key={i}>
+                  <ParticipantsListItem
+                    name={participant.fullname}
+                    avatar={participant.image}
+                    points={participant.points} />
+                </article>
+              ) : undefined
+            }
+          </List>
+        </Col>
       </Content>
     );
   }

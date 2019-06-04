@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Content from '../../common/components/Content';
+import Content from '../../common/containers/Content';
 import { CircularProgress, Typography, Snackbar } from '@material-ui/core';
 
 const styles = {
