@@ -9,7 +9,8 @@ import Events from './modules/events';
 import AssignPoints from './modules/admin-assign-points';
 import AppBar from './modules/common/containers/AppBar';
 import SignupVerification from './modules/login/containers/SignupVerification';
-import { LOGIN, LEADERBOARD, EVENTS, SIGNUP_VERIFICATION, ASSIGN_POINTS } from './routing';
+import { CreateEvent } from './modules/admin-events';
+import { LOGIN, LEADERBOARD, EVENTS, SIGNUP_VERIFICATION, ASSIGN_POINTS, CREATE_EVENT } from './routing';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
               <PrivateRoute path={EVENTS} exact component={Events} />
               <PrivateRoute path={SIGNUP_VERIFICATION} exact component={SignupVerification} />
               <PrivateRoute path={ASSIGN_POINTS} exact component={AssignPoints} adminOnly />
+              <PrivateRoute path={CREATE_EVENT} exact component={CreateEvent} adminOnly />
             </Switch>
             <Hidden mdUp>
               <BottomNavigationBar />
