@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Row, Col } from 'react-flexbox-grid';
 import RichTextEditor from 'react-rte';
 import { TextField, Button, CircularProgress, FormLabel, FormGroup, Snackbar } from '@material-ui/core';
+import { DateTime } from "luxon";
 import Content from '../../common/containers/Content';
 
 const styles = {
@@ -37,24 +38,18 @@ class CreateEvent extends React.Component {
     };
   }
   componentDidMount() {
-    const datetime = () => {
-      if (!this.props.datetime) {
+    const format = datetime => {
+      if (!datetime) {
         return '';
       }
-      const date = new Date(this.props.datetime);
-      console.log(date);
-      const isoDate = date.toISOString();
-      console.log(isoDate);
-      const formattedDateString = isoDate.substring(0, isoDate.length - 1);
-      console.log(formattedDateString);
-      return formattedDateString;
+      return DateTime.fromMillis(datetime).toFormat("yyyy-MM-dd'T'HH:mm");
     }
 
     this.setState({
       title: this.props.title,
       imageUrl: this.props.imageUrl,
       value: RichTextEditor.createValueFromString(this.props.content, FORMAT),
-      datetime: datetime(),
+      datetime: format(this.props.datetime),
     });
   }
   render() {
