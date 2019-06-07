@@ -7,6 +7,7 @@ import login from '../modules/login/login';
 import events from '../modules/events/events';
 import points from '../modules/admin-assign-points/points';
 import users from '../modules/admin-assign-points/users';
+import adminEvent from '../modules/admin-events/event';
 
 export default combineReducers({
   leaderboard,
@@ -16,4 +17,5 @@ export default combineReducers({
   events,
   points,
   users,
+  adminEvent,
 });
