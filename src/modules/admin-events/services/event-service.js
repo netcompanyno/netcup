@@ -11,7 +11,6 @@ export const createEvent = async (year, title, imageUrl, description, dateString
       image: imageUrl,
       description,
       datetime: utcDate,
-      participants: []
     });
   } catch (e) {
     throw new Error(e);
