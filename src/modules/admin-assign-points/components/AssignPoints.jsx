@@ -78,7 +78,7 @@ class AssignPoints extends Component {
     const { classes, loading, assignPoints, events, showSnackbar, dismissSnackbar } = this.props;
     return (
       <Content>
-        <Snackbar open={showSnackbar} message="Successfully updated points" autoHideDuration={1500} onClose={dismissSnackbar} />
+        <Snackbar open={showSnackbar} message="Successfully updated points" autoHideDuration={2000} onClose={dismissSnackbar} />
         <form className={classes.form}>
           <Row>
             <Col xs sm={6} smOffset={3} lg={4} lgOffset={4}>
