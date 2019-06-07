@@ -87,7 +87,7 @@ export const loadEvents = () => async dispatch => {
       description: event.description,
       image: event.image,
       title: event.title,
-      datetime: event.datetime && new Date(event.datetime),
+      datetime: event.datetime,
       participants: event.participants,
     }))
     .sort((e1, e2) => sortEventsByDatetime(e1.datetime, e2.datetime));

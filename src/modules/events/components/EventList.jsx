@@ -4,11 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import { LinearProgress, CardHeader, CardActions, Button, CircularProgress } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import LazyLoad from 'react-lazyload';
+import marked from 'marked';
+import { DateTime } from 'luxon';
 import Content from '../../common/containers/Content';
 import { eventIsBeforeToday } from '../utils/dateutils';
 
@@ -40,8 +41,8 @@ class EventList extends Component {
   componentDidMount() {
     this.props.loadEvents();
   }
-  formatDatetime(date) {
-    return date && `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`;
+  formatDatetime(datetime) {
+    return datetime && DateTime.fromMillis(datetime).toFormat("dd/MM/yyyy - HH:mm");
   }
   render() {
     const { classes, events, loading, signup, signoff, id } = this.props;
@@ -65,14 +66,14 @@ class EventList extends Component {
                   />
                 </LazyLoad>
                 <CardContent>
-                  <Typography component="p">{event.description}</Typography>
+                  <div dangerouslySetInnerHTML={{ __html: marked(event.description) }} />
                 </CardContent>
                 <CardActions>
                   {event.loading ?
                     <Button disabled className={classes.button}>
                       <CircularProgress className={classes.circularProgress} size={35} thickness={5} />
                     </Button>
-                    : event.participants[id] ?
+                    : event.participants && event.participants[id] ?
                       <Button color="primary"
                         aria-label="signoff"
                         disabled={eventIsBeforeToday(event.datetime)}
