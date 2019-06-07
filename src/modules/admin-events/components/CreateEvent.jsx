@@ -124,7 +124,7 @@ class CreateEvent extends React.Component {
                     content: extractContent(value),
                     datetime,
                   });
-                  this.setState({ title: '', imageUrl: '', content: RichTextEditor.createEmptyValue(), datetime: '' });
+                  this.setState({ title: '', imageUrl: '', value: RichTextEditor.createEmptyValue(), datetime: '' });
                 }}
                 disabled={!(title && value && datetime)}
                 fullWidth
