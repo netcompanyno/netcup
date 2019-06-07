@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Row, Col } from 'react-flexbox-grid';
 import RichTextEditor from 'react-rte';
 import { TextField, Button, CircularProgress, FormLabel, FormGroup, Snackbar } from '@material-ui/core';
-import { DateTime } from "luxon";
+import { DateTime } from 'luxon';
 import Content from '../../common/containers/Content';
 
 const styles = {
@@ -53,10 +53,11 @@ class CreateEvent extends React.Component {
     });
   }
   render() {
-    const { classes, loading, save } = this.props;
+    const { classes, loading, save, showSnackbar, dismissSnackbar } = this.props;
     const { title, imageUrl, value, datetime } = this.state;
     return (
       <Content>
+        <Snackbar open={showSnackbar} message="Successfully created event" autoHideDuration={2000} onClose={dismissSnackbar} />
         <form>
           <Row>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
@@ -116,12 +117,15 @@ class CreateEvent extends React.Component {
             <Col xs sm={6} smOffset={3} lg={2} lgOffset={8}>
               <Button
                 className={classes.button}
-                onClick={() => save({
-                  title,
-                  imageUrl,
-                  content: extractContent(value),
-                  datetime,
-                })}
+                onClick={() => {
+                  save({
+                    title,
+                    imageUrl,
+                    content: extractContent(value),
+                    datetime,
+                  });
+                  this.setState({ title: '', imageUrl: '', content: RichTextEditor.createEmptyValue(), datetime: '' });
+                }}
                 disabled={!(title && value && datetime)}
                 fullWidth
                 size="large"
