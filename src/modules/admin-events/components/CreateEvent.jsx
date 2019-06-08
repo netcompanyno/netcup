@@ -22,6 +22,10 @@ const styles = {
   descriptionField: {
     marginTop: '15px',
   },
+  row: {
+    marginRight: '0 !important',
+    marginLeft: '0 !important',
+  },
 };
 
 const FORMAT = 'markdown';
@@ -59,7 +63,7 @@ class CreateEvent extends React.Component {
       <Content>
         <Snackbar open={showSnackbar} message="Successfully created event" autoHideDuration={2000} onClose={dismissSnackbar} />
         <form>
-          <Row>
+          <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
               <FormGroup className={classes.field}>
                 <FormLabel required>Title</FormLabel>
@@ -71,7 +75,7 @@ class CreateEvent extends React.Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row>
+          <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
               <FormGroup className={classes.field}>
                 <FormLabel>ImageUrl</FormLabel>
@@ -83,7 +87,7 @@ class CreateEvent extends React.Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row>
+          <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
               <FormGroup className={classes.field}>
                 <FormLabel required>Description</FormLabel>
@@ -95,7 +99,7 @@ class CreateEvent extends React.Component {
               </FormGroup>
             </Col>
           </Row>
-          <Row>
+          <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={2} lgOffset={2}>
               <FormGroup className={classes.field}>
                 <FormLabel required>Date and time</FormLabel>
@@ -113,7 +117,7 @@ class CreateEvent extends React.Component {
             <CircularProgress size={75} thickness={5} />
           </div>
           :
-          <Row>
+          <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={2} lgOffset={8}>
               <Button
                 className={classes.button}
