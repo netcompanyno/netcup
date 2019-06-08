@@ -11,7 +11,7 @@ const collapseEvents = (events, users) => {
     return [];
   }
   return events.map(event => {
-    const participants = parseFirebasePayload(event.participants)
+    const participants = parseFirebasePayload(event.participants || [])
       .map(participant => {
         const userInfo = users[participant.id];
         return { ...participant, fullname: userInfo ? userInfo.username : participant.id };
