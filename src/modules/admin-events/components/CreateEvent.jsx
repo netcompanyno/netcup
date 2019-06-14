@@ -29,7 +29,7 @@ const styles = {
   },
 };
 
-const FORMAT = 'markdown';
+const FORMAT = 'html';
 const extractContent = value => value && value.toString(FORMAT);
 
 class CreateEvent extends React.Component {

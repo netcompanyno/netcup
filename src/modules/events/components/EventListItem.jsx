@@ -9,7 +9,6 @@ import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LazyLoad from 'react-lazyload';
-import marked from 'marked';
 import { DateTime } from 'luxon';
 import { eventIsBeforeToday } from '../utils/dateutils';
 
@@ -74,7 +73,7 @@ class EventListItem extends Component {
           </LazyLoad>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <div dangerouslySetInnerHTML={{ __html: marked(description) }} />
+              <div dangerouslySetInnerHTML={{ __html: description }} />
             </CardContent>
           </Collapse>
           <CardActions>
