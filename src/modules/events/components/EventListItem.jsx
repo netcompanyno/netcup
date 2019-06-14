@@ -57,7 +57,7 @@ class EventListItem extends Component {
     return datetime && DateTime.fromMillis(datetime).toFormat("dd/MM/yyyy - HH:mm");
   }
   render() {
-    const { classes, loading, signedUp, title, datetime, image, description, signup, signoff } = this.props;
+    const { classes, loading, signedUp, title, datetime, image, description, signup, signoff, formatDescription } = this.props;
     return (
       <Col md={6} mdOffset={3}>
         <Card className={eventIsBeforeToday(datetime) ? classes.disabledCard : classes.activeCard}>
@@ -73,7 +73,7 @@ class EventListItem extends Component {
           </LazyLoad>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <div dangerouslySetInnerHTML={{ __html: description }} />
+              <div dangerouslySetInnerHTML={{ __html: formatDescription(description) }} />
             </CardContent>
           </Collapse>
           <CardActions>

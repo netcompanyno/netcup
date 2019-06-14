@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { loadEvents, signup, signoff } from '../events';
 import EventList from '../components/EventList';
+import sanitize from '../../common/utils/html-sanitizer';
 
 export default connect(
   state => ({
@@ -8,6 +9,7 @@ export default connect(
     events: state.events.list,
     userId: state.auth.currentUser.uid,
     eventLoading: state.events.eventLoading,
+    formatDescription: sanitize,
   }),
   dispatch => ({
     loadEvents: () => dispatch(loadEvents()),

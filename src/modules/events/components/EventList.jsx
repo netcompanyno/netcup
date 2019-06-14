@@ -12,7 +12,7 @@ class EventList extends Component {
     return datetime && DateTime.fromMillis(datetime).toFormat("dd/MM/yyyy - HH:mm");
   }
   render() {
-    const { userId, events, loading, signup, signoff } = this.props;
+    const { userId, events, loading, signup, signoff, formatDescription } = this.props;
     return (
       loading ?
       <LinearProgress />
@@ -30,6 +30,7 @@ class EventList extends Component {
               datetime={event.datetime}
               signup={() => signup(event)} 
               signoff={() => signoff(event)}
+              formatDescription={content => formatDescription(content)}
             />
           ) 
           : 
