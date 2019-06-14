@@ -61,6 +61,7 @@ export default (state = defaultState, action) => {
       const matchingEvent = copy.find(e => e.id === action.event.id);
 
       if (matchingEvent) {
+        matchingEvent.participants = matchingEvent.participants || {};
         matchingEvent.participants[action.participantId] = true;
       }
       return { ...state, list: copy };
@@ -70,6 +71,7 @@ export default (state = defaultState, action) => {
       const matchingEvent = copy.find(e => e.id === action.event.id);
 
       if (matchingEvent) {
+        matchingEvent.participants = matchingEvent.participants || {};
         delete matchingEvent.participants[action.participantId];
       }
       return { ...state, list: copy };
@@ -113,6 +115,7 @@ export const signup = event => async (dispatch, getState) => {
     await signupForEvent(new Date().getFullYear(), event.id, id);
     dispatch({ type: EVENT_SIGNUP_SUCCESS, event, participantId: id });
   } catch (e) {
+    console.log(e);
     dispatch({ type: EVENT_SIGNUP_FAILURE });
   } finally {
     dispatch({ type: EVENT_SIGNUP_FINISH, event });
