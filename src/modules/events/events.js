@@ -115,7 +115,6 @@ export const signup = event => async (dispatch, getState) => {
     await signupForEvent(new Date().getFullYear(), event.id, id);
     dispatch({ type: EVENT_SIGNUP_SUCCESS, event, participantId: id });
   } catch (e) {
-    console.log(e);
     dispatch({ type: EVENT_SIGNUP_FAILURE });
   } finally {
     dispatch({ type: EVENT_SIGNUP_FINISH, event });
