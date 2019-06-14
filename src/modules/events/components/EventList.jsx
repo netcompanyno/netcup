@@ -4,16 +4,17 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { LinearProgress, CardHeader, CardActions, Button, CircularProgress } from '@material-ui/core';
+import { LinearProgress, CardHeader, CardActions, Button, CircularProgress, Collapse, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LazyLoad from 'react-lazyload';
 import marked from 'marked';
 import { DateTime } from 'luxon';
 import Content from '../../common/containers/Content';
 import { eventIsBeforeToday } from '../utils/dateutils';
 
-const styles = {
+const styles = theme => ({
   wrapper: {
     paddingTop: 8,
     paddingBottom: 2,
@@ -35,9 +36,25 @@ const styles = {
     marginBottom: 8,
     opacity: 1.0,
   },
-};
+  expandMore: {
+    marginLeft: 'auto',
+  },
+  cardExpanded: {
+    transform: 'rotate(180deg)',
+  },
+  cardCollapsed: {
+    transform: 'rotate(0deg)',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+});
 
 class EventList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { expanded: false };
+  }
   componentDidMount() {
     this.props.loadEvents();
   }
@@ -65,9 +82,11 @@ class EventList extends Component {
                     image={event.image}
                   />
                 </LazyLoad>
-                <CardContent>
-                  <div dangerouslySetInnerHTML={{ __html: marked(event.description) }} />
-                </CardContent>
+                <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                    <div dangerouslySetInnerHTML={{ __html: marked(event.description) }} />
+                  </CardContent>
+                </Collapse>
                 <CardActions>
                   {event.loading ?
                     <Button disabled className={classes.button}>
@@ -94,6 +113,11 @@ class EventList extends Component {
                       <AddIcon className={classes.rightIcon} />
                     </Button>
                   }
+                  <IconButton
+                    className={`${classes.expandMore} ${this.state.expanded ? classes.cardExpanded : classes.cardCollapsed}`}
+                    onClick={() => this.setState({ expanded: !this.state.expanded })}>
+                    <ExpandMoreIcon />
+                  </IconButton>
                 </CardActions>
               </Card>
             </Col>
