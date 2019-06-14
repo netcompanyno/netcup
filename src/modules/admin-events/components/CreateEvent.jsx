@@ -22,9 +22,10 @@ const styles = {
   descriptionField: {
     marginTop: '15px',
   },
-  row: {
-    marginRight: '0 !important',
-    marginLeft: '0 !important',
+  form: {
+    paddingTop: '20px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
 };
 
@@ -61,11 +62,13 @@ class CreateEvent extends React.Component {
     const { title, imageUrl, value, datetime } = this.state;
     return (
       <Content>
-        <Snackbar open={showSnackbar} message="Successfully created event" autoHideDuration={2000} onClose={dismissSnackbar} />
-        <form>
+        {showSnackbar &&
+          <Snackbar open={showSnackbar} message="Successfully created event" autoHideDuration={2000} onClose={dismissSnackbar} />
+        }
+        <form className={classes.form}>
           <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
-              <FormGroup className={classes.field}>
+              <FormGroup>
                 <FormLabel required>Title</FormLabel>
                 <TextField
                   type="text"
