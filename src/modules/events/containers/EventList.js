@@ -6,7 +6,7 @@ export default connect(
   state => ({
     loading: state.events.loading,
     events: state.events.list,
-    id: state.auth.currentUser.uid,
+    userId: state.auth.currentUser.uid,
     eventLoading: state.events.eventLoading,
   }),
   dispatch => ({
