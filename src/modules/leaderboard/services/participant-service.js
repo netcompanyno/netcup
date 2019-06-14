@@ -10,7 +10,7 @@ export const fetchParticipants = async year => {
       const eventParticipants = eventData.participants || [];
 
       for (const [userId, participantData] of Object.entries(eventParticipants)) {
-        const points = parseInt(participantData.points, 10);
+        const points = parseInt(participantData.points, 10) || 0;
 
         if (participants[userId]) {
           participants[userId] += points
