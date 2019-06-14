@@ -43,18 +43,11 @@ class CreateEvent extends React.Component {
     };
   }
   componentDidMount() {
-    const format = datetime => {
-      if (!datetime) {
-        return '';
-      }
-      return DateTime.fromMillis(datetime).toFormat("yyyy-MM-dd'T'HH:mm");
-    }
-
     this.setState({
       title: this.props.title,
       imageUrl: this.props.imageUrl,
       value: RichTextEditor.createValueFromString(this.props.content, FORMAT),
-      datetime: format(this.props.datetime),
+      datetime: this.props.datetime ? DateTime.fromMillis(this.props.datetime).toFormat("yyyy-MM-dd'T'HH:mm") : '',
     });
   }
   render() {
