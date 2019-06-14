@@ -61,6 +61,7 @@ export default (state = defaultState, action) => {
       const matchingEvent = copy.find(e => e.id === action.event.id);
 
       if (matchingEvent) {
+        matchingEvent.participants = matchingEvent.participants || {};
         matchingEvent.participants[action.participantId] = true;
       }
       return { ...state, list: copy };
@@ -70,6 +71,7 @@ export default (state = defaultState, action) => {
       const matchingEvent = copy.find(e => e.id === action.event.id);
 
       if (matchingEvent) {
+        matchingEvent.participants = matchingEvent.participants || {};
         delete matchingEvent.participants[action.participantId];
       }
       return { ...state, list: copy };
@@ -87,7 +89,7 @@ export const loadEvents = () => async dispatch => {
       description: event.description,
       image: event.image,
       title: event.title,
-      datetime: event.datetime && new Date(event.datetime),
+      datetime: event.datetime,
       participants: event.participants,
     }))
     .sort((e1, e2) => sortEventsByDatetime(e1.datetime, e2.datetime));

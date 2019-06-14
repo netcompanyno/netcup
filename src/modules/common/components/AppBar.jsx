@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar, Typography, IconButton, Drawer, ListItem, ListItemText, Divider, Hidden } from '@material-ui/core';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
+import AddIcon from '@material-ui/icons/Add';
 import MenuIcon from '@material-ui/icons/Menu';
 import List from '@material-ui/core/List';
 import FormatListNumberedRtlIcon from '@material-ui/icons/FormatListNumberedRtl';
@@ -56,6 +57,12 @@ class CustomAppBar extends Component {
         <ListItem button onClick={() => clickMenuOption(this.props.goToPoints)}>
           <ExposurePlus1Icon />
           <ListItemText>Assign points</ListItemText>
+        </ListItem>
+      ),
+      (
+        <ListItem button onClick={() => clickMenuOption(this.props.goToCreateEvent)}>
+          <AddIcon />
+          <ListItemText>Create new event</ListItemText>
         </ListItem>
       ),
     ];
