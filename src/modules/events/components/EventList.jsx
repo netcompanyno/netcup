@@ -8,11 +8,8 @@ class EventList extends Component {
   componentDidMount() {
     this.props.loadEvents();
   }
-  formatDatetime(datetime) {
-    return datetime && DateTime.fromMillis(datetime).toFormat("dd/MM/yyyy - HH:mm");
-  }
   render() {
-    const { userId, events, loading, signup, signoff, formatDescription } = this.props;
+    const { userId, admin, editEventClick, events, loading, signup, signoff, formatDescription } = this.props;
     return (
       loading ?
       <LinearProgress />
@@ -22,6 +19,8 @@ class EventList extends Component {
           events.map(event => 
             <EventListItem 
               key={event.id}
+              admin={admin}
+              editEventClick={() => editEventClick(event.id)}
               loading={event.loading}
               signedUp={event.participants && event.participants[userId]}
               title={event.title}

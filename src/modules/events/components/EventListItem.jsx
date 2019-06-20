@@ -8,6 +8,8 @@ import { CardHeader, CardActions, Button, CircularProgress, Collapse, IconButton
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@material-ui/icons/Edit';
 import LazyLoad from 'react-lazyload';
 import { DateTime } from 'luxon';
 import { eventIsBeforeToday } from '../utils/dateutils';
@@ -57,13 +59,21 @@ class EventListItem extends Component {
     return datetime && DateTime.fromMillis(datetime).toFormat("dd/MM/yyyy - HH:mm");
   }
   render() {
-    const { classes, loading, signedUp, title, datetime, image, description, signup, signoff, formatDescription } = this.props;
+    const { classes, loading, signedUp, title, datetime, image, description, signup, signoff, formatDescription, admin, editEventClick } = this.props;
     return (
       <Col md={6} mdOffset={3}>
         <Card className={eventIsBeforeToday(datetime) ? classes.disabledCard : classes.activeCard}>
           <CardHeader
             title={title}
             subheader={this.formatDatetime(datetime)}
+            action={
+              admin ?
+              <IconButton onClick={editEventClick}>
+                <EditIcon />
+              </IconButton>
+              :
+              undefined
+            }
           />
           <LazyLoad height={300}>
             <CardMedia
