@@ -42,23 +42,54 @@ class CreateEvent extends React.Component {
       datetime: '',
     };
   }
-  componentDidMount() {
+
+  loadEvent({ title, imageUrl, content, datetime }) {
     this.setState({
-      title: this.props.title,
-      imageUrl: this.props.imageUrl,
-      value: RichTextEditor.createValueFromString(this.props.content, FORMAT),
-      datetime: this.props.datetime ? DateTime.fromMillis(this.props.datetime).toFormat("yyyy-MM-dd'T'HH:mm") : '',
+      title,
+      imageUrl,
+      value: content ? RichTextEditor.createValueFromString(content, FORMAT) : RichTextEditor.createEmptyValue(),
+      datetime: datetime ? DateTime.fromMillis(datetime).toFormat("yyyy-MM-dd'T'HH:mm") : '',
     });
   }
+
+  /**
+   * Ensures that when going directly to link for editing and event and we _dont_
+   * have events preloaded, it will fetch all events and load correct one into state.
+   */
+  componentDidUpdate(prevProps) {
+    const { title, content, imageUrl, datetime, editing } = this.props;
+    const updateState = editing &&
+      prevProps.title !== title ||
+      prevProps.content !== content ||
+      prevProps.imageUrl !== imageUrl ||
+      prevProps.datetime !== datetime;
+      
+    if (updateState) {
+      this.loadEvent(this.props);
+    }
+  }
+  
+  /**
+   * Ensures that when following edit icon from event-list that event is loaded 
+   * correctly into state for editing.
+   */
+  componentDidMount() {
+    if (this.props.editing) {
+      this.props.load(this.props.events);
+    }
+
+    this.loadEvent(this.props);
+  }
+
   render() {
-    const { classes, loading, save, showSnackbar, dismissSnackbar } = this.props;
+    const { classes, loading, save, showSnackbar, dismissSnackbar, snackbarMessage } = this.props;
     const { title, imageUrl, value, datetime } = this.state;
     return (
       <Content>
         {showSnackbar &&
-          <Snackbar open={showSnackbar} message="Successfully created event" autoHideDuration={2000} onClose={dismissSnackbar} />
+          <Snackbar open={showSnackbar} message={snackbarMessage} autoHideDuration={2000} onClose={dismissSnackbar} />
         }
-        <form className={classes.form}>
+        <form className={classes.form} key={this.props.title}>
           <Row className={classes.row}>
             <Col xs sm={6} smOffset={3} lg={8} lgOffset={2}>
               <FormGroup>
